@@ -52,7 +52,9 @@
 				height="fit-content"
 				class="max-h-full self-center"
 				bind:this={videoElement}
-			/>
+			>
+				<track kind="captions" />
+			</video>
 		</div>
 	</div>
 </div>
