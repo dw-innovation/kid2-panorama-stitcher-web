@@ -1,6 +1,14 @@
 <script lang="ts">
 	import type { MediaItem } from '$lib/types';
-	import { FastForward, Pause, Play, Rewind } from '@lucide/svelte';
+	import {
+		ChevronFirst,
+		ChevronLast,
+		FastForward,
+		Pause,
+		Play,
+		Rewind,
+		TimerReset
+	} from '@lucide/svelte';
 	import { onDestroy, onMount } from 'svelte';
 
 	let {
@@ -52,27 +60,38 @@
 
 	const onSpeedChange = (e: Event) => {
 		const rate = parseFloat((e.target as HTMLSelectElement).value);
-		videoElement.playbackRate = rate;
 		playbackRate = rate;
-	};
-
-	$effect(() => {
-		if (videoElement) {
-			videoElement.playbackRate = playbackRate;
+		if (videoElement && videoElement.playbackRate !== rate) {
+			videoElement.playbackRate = rate;
 		}
-	});
+	};
 
 	const onKeyDown = (event: KeyboardEvent) => {
 		if (event.code === 'Space' || event.key === ' ') {
 			event.preventDefault();
 			togglePlay();
 		}
+		if (event.code === 'ArrowLeft') {
+			stepBackward();
+		}
+		if (event.code === 'ArrowRight') {
+			stepForward();
+		}
+	};
+
+	const stepForward = () => {
+		const fps = 25;
+		videoElement.currentTime = Math.min(duration, videoElement.currentTime + 1 / fps);
+	};
+
+	const stepBackward = () => {
+		const fps = 25;
+		videoElement.currentTime = Math.max(0, videoElement.currentTime - 1 / fps);
 	};
 
 	onMount(() => {
 		window.addEventListener('keydown', onKeyDown);
 	});
-
 	onDestroy(() => {
 		window.removeEventListener('keydown', onKeyDown);
 	});
@@ -80,9 +99,14 @@
 
 <div class="flex h-full w-full flex-col overflow-hidden">
 	<div class="flex flex-wrap items-center justify-center gap-2 bg-gray-100 py-2">
+		<button onclick={stepBackward} title="Previous Frame">
+			<ChevronFirst size={16} />
+		</button>
+
 		<button onclick={rewind}>
 			<Rewind size={16} />
 		</button>
+
 		<button onclick={togglePlay}>
 			{#if isPlaying}
 				<Pause size={16} />
@@ -90,8 +114,13 @@
 				<Play size={16} />
 			{/if}
 		</button>
+
 		<button onclick={forward}>
 			<FastForward size={16} />
+		</button>
+
+		<button onclick={stepForward} title="Next Frame">
+			<ChevronLast size={16} />
 		</button>
 
 		<input
@@ -101,16 +130,16 @@
 			step="0.1"
 			value={currentTime}
 			oninput={onSliderInput}
-			class="h-1 flex-1 accent-blue-500"
+			class="h-1 flex-1 accent-blue-500 outline-0"
 		/>
 
 		<div class="mt-1 text-xs text-gray-600 tabular-nums">
 			{formatTime(currentTime)} / {formatTime(duration)}
 		</div>
-
+		<TimerReset size={16} />
 		<select
 			onchange={onSpeedChange}
-			bind:value={playbackRate}
+			value={String(playbackRate)}
 			class="rounded border px-1 py-0.5 text-sm"
 		>
 			<option value="0.5">0.5x</option>
