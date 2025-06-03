@@ -61,7 +61,7 @@
 			class="absolute top-1/2 left-0 h-2 w-2 -translate-x-full -translate-y-1/2 bg-[#5b5b5b] shadow-2xs"
 		></div>
 	{/if}
-	<div class="group relative h-full flex-none">
+	<div class="group relative h-full flex-none" style:width="max-content">
 		<ImageElement blobURL={mediaItem.blobURL} id={mediaItem.id} />
 
 		<AddToInspectorOverlay {mediaItem} />

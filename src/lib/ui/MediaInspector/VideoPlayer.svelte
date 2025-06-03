@@ -95,6 +95,24 @@
 	onDestroy(() => {
 		window.removeEventListener('keydown', onKeyDown);
 	});
+
+	let previousBlobURL: string | null = null;
+
+	$effect(() => {
+		if (!videoElement || !mediaItem?.blobURL) return;
+
+		if (mediaItem.blobURL !== previousBlobURL) {
+			previousBlobURL = mediaItem.blobURL;
+
+			videoElement.pause();
+			videoElement.src = mediaItem.blobURL;
+			videoElement.load();
+
+			isPlaying = false;
+			currentTime = 0;
+			duration = 0;
+		}
+	});
 </script>
 
 <div class="flex h-full w-full flex-col overflow-hidden">

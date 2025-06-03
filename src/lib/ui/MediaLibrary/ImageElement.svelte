@@ -9,6 +9,6 @@
 	bind:naturalHeight
 	src={blobURL}
 	alt={id}
-	class="h-full max-h-full w-auto"
+	class="object-fit h-full max-h-full w-auto"
 	style:aspect-ratio="{naturalWidth} / {naturalHeight}"
 />
