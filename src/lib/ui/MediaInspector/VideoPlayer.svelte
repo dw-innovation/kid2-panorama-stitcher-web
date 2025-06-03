@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { MediaItem } from '$lib/types';
 	import { FastForward, Pause, Play, Rewind } from '@lucide/svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	let {
 		mediaItem,
@@ -59,6 +60,21 @@
 		if (videoElement) {
 			videoElement.playbackRate = playbackRate;
 		}
+	});
+
+	const onKeyDown = (event: KeyboardEvent) => {
+		if (event.code === 'Space' || event.key === ' ') {
+			event.preventDefault();
+			togglePlay();
+		}
+	};
+
+	onMount(() => {
+		window.addEventListener('keydown', onKeyDown);
+	});
+
+	onDestroy(() => {
+		window.removeEventListener('keydown', onKeyDown);
 	});
 </script>
 
