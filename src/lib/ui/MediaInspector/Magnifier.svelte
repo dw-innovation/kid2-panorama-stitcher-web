@@ -64,11 +64,7 @@
 	}
 </script>
 
-<div
-	class="magnifier {className}"
-	class:no-overflow={mgShowOverflow}
-	style="width: {width}; height: {height}"
->
+<div class="magnifier {className}" class:no-overflow={mgShowOverflow}>
 	<img
 		{src}
 		{alt}

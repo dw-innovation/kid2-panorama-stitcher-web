@@ -1,6 +1,5 @@
 <script lang="ts">
-	let { blobURL, id, sourceId }: { blobURL: string; id: string; sourceId: string | undefined } =
-		$props();
+	let { blobURL, id }: { blobURL: string; id: string } = $props();
 	let naturalWidth = $state(0);
 	let naturalHeight = $state(0);
 </script>

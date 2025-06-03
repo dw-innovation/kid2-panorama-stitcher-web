@@ -62,7 +62,7 @@
 		></div>
 	{/if}
 	<div class="group relative h-full flex-none">
-		<ImageElement blobURL={mediaItem.blobURL} id={mediaItem.id} sourceId={mediaItem.sourceId} />
+		<ImageElement blobURL={mediaItem.blobURL} id={mediaItem.id} />
 
 		<AddToInspectorOverlay {mediaItem} />
 

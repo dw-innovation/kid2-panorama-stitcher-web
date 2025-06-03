@@ -44,7 +44,7 @@
 				src={appState.selectedMediaItem?.blobURL}
 				height="fit-content"
 				alt=""
-				className="max-h-full"
+				className=" h-[inherit]"
 			/>
 		</div>
 	</div>
