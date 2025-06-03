@@ -70,15 +70,6 @@
 			{#if appState.selectedMediaItem}
 				<VideoPlayer mediaItem={appState.selectedMediaItem} bind:videoElement />
 			{/if}
-			<!-- <video
-				src={appState.selectedMediaItem?.blobURL}
-				controls
-				height="fit-content"
-				class="max-h-full self-center"
-				bind:this={videoElement}
-			>
-				<track kind="captions" />
-			</video> -->
 		</div>
 	</div>
 </div>
