@@ -8,8 +8,11 @@ body {
 	font-family: 'Inter', sans-serif;
 }
 
+kbd {
+	@apply inline-block rounded-sm border border-slate-300 p-1 align-middle text-xs leading-none font-bold;
+}
 header {
-	@apply flex items-center justify-between rounded-lg bg-white p-4 shadow-sm;
+	@apply flex items-center justify-center rounded-lg;
 	grid-area: header;
 }
 

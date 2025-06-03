@@ -47,10 +47,12 @@
 		}
 	};
 
-	const handleDoubleClick = (e) => {
+	const handleDoubleClick = (e: any) => {
 		const target = e.target as CanvasObject | undefined;
 		if (target && '_id' in target) {
-			alert(`Double-clicked image with ID: ${target._id}`);
+			alert(
+				`Double clicked asset with ID: ${target._id} (this will open a modal for cropping in next version)`
+			);
 		}
 	};
 

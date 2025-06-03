@@ -6,7 +6,7 @@
 	const CurrentComponent = $derived(STEPS[stepsStore.currentStep].component);
 </script>
 
-<header class="bg-red-300">
+<header>
 	<Navigation />
 </header>
 

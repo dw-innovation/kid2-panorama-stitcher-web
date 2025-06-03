@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { appState } from '$lib/state.svelte';
 	import { ImagePlus, FileDown } from '@lucide/svelte';
-	let videoElement: HTMLVideoElement | null = null;
+	import { onDestroy, onMount } from 'svelte';
+	import VideoPlayer from './VideoPlayer.svelte';
+	import { handleDownload } from '$lib/lib';
+
+	let videoElement: HTMLVideoElement;
 
 	const handleCaptureFrame = async () => {
 		if (!videoElement || !appState.selectedMediaItem) return;
@@ -28,6 +32,20 @@
 			}
 		}, 'image/png');
 	};
+
+	const handleKeyDown = (e: KeyboardEvent) => {
+		if (e.key === 'c' || e.key === 'C') {
+			handleCaptureFrame();
+		}
+	};
+
+	onMount(() => {
+		window.addEventListener('keydown', handleKeyDown);
+	});
+
+	onDestroy(() => {
+		window.removeEventListener('keydown', handleKeyDown);
+	});
 </script>
 
 <div class="mediaInspector relative h-full max-h-full flex-none">
@@ -35,18 +53,24 @@
 
 	<div class="flex h-full flex-col gap-2">
 		<div class="flex gap-2">
-			<button on:click={handleCaptureFrame} disabled={!appState.selectedMediaItem}>
+			<button onclick={handleCaptureFrame} disabled={!appState.selectedMediaItem}>
 				<ImagePlus size={12} />
-				capture frame
+				capture frame <kbd>c</kbd>
 			</button>
-			<button on:click={() => {}}>
+			<button
+				onclick={() =>
+					appState.selectedMediaItem?.id && handleDownload(appState.selectedMediaItem?.id)}
+			>
 				<FileDown size={12} />
 				download
 			</button>
 		</div>
 
 		<div class="relative flex h-full flex-1 items-center justify-center overflow-hidden">
-			<video
+			{#if appState.selectedMediaItem}
+				<VideoPlayer mediaItem={appState.selectedMediaItem} bind:videoElement />
+			{/if}
+			<!-- <video
 				src={appState.selectedMediaItem?.blobURL}
 				controls
 				height="fit-content"
@@ -54,7 +78,7 @@
 				bind:this={videoElement}
 			>
 				<track kind="captions" />
-			</video>
+			</video> -->
 		</div>
 	</div>
 </div>

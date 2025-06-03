@@ -10,6 +10,17 @@
 	const handleRemove = () => {
 		appState.removeMediaItem(mediaItem.id);
 	};
+
+	const handleDownload = () => {
+		if (!appState.selectedMediaItem?.blobURL) return;
+
+		const link = document.createElement('a');
+		link.href = appState.selectedMediaItem.blobURL;
+		link.download = appState.selectedMediaItem.id;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	};
 </script>
 
 <div class="group relative h-full flex-none">
@@ -19,7 +30,7 @@
 	<div
 		class="absolute top-2 right-2 z-20 flex gap-1 opacity-0 transition-all group-hover:opacity-100"
 	>
-		<button onclick={() => {}} class="mediaLibrary-button">
+		<button onclick={handleDownload} class="mediaLibrary-button">
 			<FileDown size={15} />
 		</button>
 

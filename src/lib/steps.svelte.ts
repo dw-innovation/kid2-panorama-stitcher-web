@@ -1,4 +1,5 @@
 import { STEPS } from './const';
+import { appState } from '$lib/state.svelte';
 
 export const createStepsStore = () => {
 	const state = $state<{
@@ -18,7 +19,11 @@ export const createStepsStore = () => {
 			if (state.currentStep !== 0) state.currentStep--;
 		},
 		setStep: (index: number) => {
-			if (index >= 0 && index < STEPS.length) state.currentStep = index;
+			if (index < 0 || index >= STEPS.length) return;
+
+			if (index === STEPS.length - 1 && appState.canvasItems.length === 0) return;
+
+			state.currentStep = index;
 		}
 	};
 };

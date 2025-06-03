@@ -1,6 +1,7 @@
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
 import type { MediaType } from './types';
+import { appState } from './state.svelte';
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
@@ -23,3 +24,15 @@ export const getMediaDimensions = (
 			video.src = blobURL;
 		}
 	});
+
+export const handleDownload = (id: string) => {
+	const mediaItem = appState.mediaItems.find((item) => item.id === id);
+	if (!mediaItem) return;
+
+	const link = document.createElement('a');
+	link.href = mediaItem.blobURL;
+	link.download = mediaItem.id;
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+};
