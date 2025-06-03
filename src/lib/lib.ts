@@ -1,7 +1,9 @@
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
-import type { MediaType } from './types';
+import type { CanvasItem, MediaType } from './types';
 import { appState } from './state.svelte';
+import { PUBLIC_STITCH_API } from '$env/static/public';
+import { stepsStore } from './steps.svelte';
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
@@ -35,4 +37,38 @@ export const handleDownload = (id: string) => {
 	document.body.appendChild(link);
 	link.click();
 	document.body.removeChild(link);
+};
+
+export const stitchCanvasImages = async (canvasItems: CanvasItem[]) => {
+	const formData = new FormData();
+
+	for (const item of canvasItems) {
+		const response = await fetch(item.blobURL);
+		const blob = await response.blob();
+
+		const file = new File([blob], `${item.sourceId || item.id}.png`, { type: blob.type });
+
+		formData.append('images', file);
+	}
+
+	try {
+		const response = await fetch(`${PUBLIC_STITCH_API}/stitchPanorama`, {
+			method: 'POST',
+			body: formData
+		});
+
+		if (!response.ok) {
+			const error = await response.json();
+			console.error('Stitching error:', error);
+			return;
+		}
+
+		const stitchedBlob = await response.blob();
+		const stitchedURL = URL.createObjectURL(stitchedBlob);
+
+		appState.setPanorama(stitchedURL);
+		stepsStore.nextStep();
+	} catch (err) {
+		console.error('Failed to send images:', err);
+	}
 };

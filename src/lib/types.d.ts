@@ -12,6 +12,13 @@ export type MediaItem = {
 	naturalHeight: number;
 	naturalWidth: number;
 };
+
+export type Panorama = {
+	blobURL: string;
+	naturalHeight: number;
+	naturalWidth: number;
+};
+
 export interface CanvasObject extends FabricObject {
 	_id: string;
 }
@@ -34,4 +41,5 @@ export type AppState = {
 	selectedMediaItem: string | undefined;
 	mediaItems: MediaItem[];
 	canvasItems: CanvasItem[];
+	panorama: Panorama | undefined;
 };

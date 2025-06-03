@@ -8,7 +8,8 @@ export const createState = () => {
 	const state = $state<AppState>({
 		selectedMediaItem: undefined,
 		mediaItems: [],
-		canvasItems: []
+		canvasItems: [],
+		panorama: undefined
 	});
 
 	return {
@@ -136,6 +137,21 @@ export const createState = () => {
 		setCropBox: (id: string, cropBox: [number, number, number, number]) => {
 			const frame = state.canvasItems.find((item) => item.id === id);
 			if (frame) frame.cropBox = cropBox;
+		},
+		get panorama() {
+			return state.panorama;
+		},
+		setPanorama: async (blobURL: string) => {
+			const { width: naturalWidth, height: naturalHeight } = await getMediaDimensions(
+				blobURL,
+				'image'
+			);
+
+			state.panorama = {
+				blobURL,
+				naturalHeight,
+				naturalWidth
+			};
 		}
 	};
 };

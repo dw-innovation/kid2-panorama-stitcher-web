@@ -10,6 +10,7 @@
 		TimerReset
 	} from '@lucide/svelte';
 	import { onDestroy, onMount } from 'svelte';
+	import { VolumeX, Volume2 } from '@lucide/svelte';
 
 	let {
 		mediaItem,
@@ -20,6 +21,7 @@
 	let currentTime = $state(0);
 	let duration = $state(0);
 	let playbackRate = $state(1);
+	let isMuted = $state(false);
 
 	const formatTime = (t: number) => {
 		const minutes = Math.floor(t / 60);
@@ -71,11 +73,24 @@
 			event.preventDefault();
 			togglePlay();
 		}
+
 		if (event.code === 'ArrowLeft') {
 			stepBackward();
 		}
+
 		if (event.code === 'ArrowRight') {
 			stepForward();
+		}
+
+		if (event.key === 'm' || event.key === 'M') {
+			toggleMute();
+		}
+	};
+
+	const toggleMute = () => {
+		if (videoElement) {
+			videoElement.muted = !videoElement.muted;
+			isMuted = videoElement.muted;
 		}
 	};
 
@@ -115,7 +130,7 @@
 	});
 </script>
 
-<div class="flex h-full w-full flex-col overflow-hidden">
+<div class="controls flex h-full w-full flex-col overflow-hidden">
 	<div class="flex flex-wrap items-center justify-center gap-2 bg-gray-100 py-2">
 		<button onclick={stepBackward} title="Previous Frame">
 			<ChevronFirst size={16} />
@@ -154,6 +169,14 @@
 		<div class="mt-1 text-xs text-gray-600 tabular-nums">
 			{formatTime(currentTime)} / {formatTime(duration)}
 		</div>
+		<button onclick={toggleMute} title="Mute / Unmute">
+			{#if isMuted}
+				<VolumeX size={16} />
+			{:else}
+				<Volume2 size={16} />
+			{/if}
+		</button>
+
 		<TimerReset size={16} />
 		<select
 			onchange={onSpeedChange}
@@ -180,3 +203,11 @@
 		</video>
 	</div>
 </div>
+
+<style lang="postcss">
+	@reference "$src/app.css";
+
+	.controls button {
+		@apply px-1;
+	}
+</style>

@@ -3,7 +3,8 @@
 	import { Canvas, FabricImage, type ModifiedEvent, type TEvent, type TPointerEvent } from 'fabric';
 	import { appState } from '$lib/state.svelte';
 	import type { CanvasObject } from '$lib/types';
-	import { Aperture } from '@lucide/svelte';
+	import { Aperture, Download } from '@lucide/svelte';
+	import { stitchCanvasImages } from '$lib/lib';
 
 	let canvasEl: HTMLCanvasElement;
 	let canvasContainer: HTMLDivElement;
@@ -124,11 +125,27 @@
 <div class="canvas relative flex flex-col gap-2">
 	<span class="pane-label">canvas</span>
 	<div class="flex gap-2">
-		<button><Aperture size={12} />create panorama</button>
+		<button onclick={() => stitchCanvasImages(appState.canvasItems)}>
+			<Aperture size={12} />create panorama
+		</button>
 		<button onclick={appState.clearCanvasItems}>clear selection</button>
+		<button
+			onclick={() => {
+				alert('yet to come');
+			}}
+		>
+			<Download size={12} /> images
+		</button>
+		<button
+			onclick={() => {
+				alert('yet to come');
+			}}
+		>
+			<Download size={12} /> canvas
+		</button>
 	</div>
 	<div class="w-full flex-1" bind:this={canvasContainer}>
-		<canvas bind:this={canvasEl} class="" width="800" height="500"></canvas>
+		<canvas bind:this={canvasEl} width="800" height="500"></canvas>
 	</div>
 </div>
 

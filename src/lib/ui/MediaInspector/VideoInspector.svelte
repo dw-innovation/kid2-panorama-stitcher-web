@@ -51,7 +51,7 @@
 <div class="mediaInspector relative h-full max-h-full flex-none">
 	<span class="pane-label">video inspector</span>
 
-	<div class="flex h-full flex-col gap-2">
+	<div class="flex h-full flex-col">
 		<div class="flex gap-2">
 			<button onclick={handleCaptureFrame} disabled={!appState.selectedMediaItem}>
 				<ImagePlus size={12} />
