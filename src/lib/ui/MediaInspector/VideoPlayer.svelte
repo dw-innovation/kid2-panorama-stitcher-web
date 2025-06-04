@@ -11,6 +11,7 @@
 	} from '@lucide/svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import { VolumeX, Volume2 } from '@lucide/svelte';
+	import { appState } from '$src/lib/state.svelte';
 
 	let {
 		mediaItem,
@@ -18,7 +19,7 @@
 	}: { mediaItem: MediaItem; videoElement: HTMLVideoElement } = $props();
 
 	let isPlaying = $state(false);
-	let currentTime = $state(0);
+	let currentTime = $state(mediaItem.currentTime ?? 0);
 	let duration = $state(0);
 	let playbackRate = $state(1);
 	let isMuted = $state(false);
@@ -107,6 +108,7 @@
 	onMount(() => {
 		window.addEventListener('keydown', onKeyDown);
 	});
+
 	onDestroy(() => {
 		window.removeEventListener('keydown', onKeyDown);
 	});
@@ -123,10 +125,16 @@
 			videoElement.src = mediaItem.blobURL;
 			videoElement.load();
 
+			videoElement.currentTime = mediaItem.currentTime ?? 0;
+
 			isPlaying = false;
-			currentTime = 0;
+			currentTime = mediaItem.currentTime ?? 0;
 			duration = 0;
 		}
+	});
+
+	$effect(() => {
+		appState.updatePlaybackTime(mediaItem.id, currentTime);
 	});
 </script>
 
@@ -155,7 +163,6 @@
 		<button onclick={stepForward} title="Next Frame">
 			<ChevronLast size={16} />
 		</button>
-
 		<input
 			type="range"
 			min="0"
@@ -169,6 +176,7 @@
 		<div class="mt-1 text-xs text-gray-600 tabular-nums">
 			{formatTime(currentTime)} / {formatTime(duration)}
 		</div>
+
 		<button onclick={toggleMute} title="Mute / Unmute">
 			{#if isMuted}
 				<VolumeX size={16} />
@@ -178,6 +186,7 @@
 		</button>
 
 		<TimerReset size={16} />
+
 		<select
 			onchange={onSpeedChange}
 			value={String(playbackRate)}
