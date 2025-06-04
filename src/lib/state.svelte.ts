@@ -48,7 +48,9 @@ export const createState = () => {
 				label,
 				mediaType,
 				naturalWidth,
-				naturalHeight
+				naturalHeight,
+				currentTime: 0,
+				speed: 1
 			};
 
 			if (sourceId) {
@@ -60,6 +62,14 @@ export const createState = () => {
 				state.mediaItems.push(newMediaItem);
 			}
 			return { id, blobURL };
+		},
+		updatePlaybackTime: (id: string, time: number) => {
+			const index = state.mediaItems.findIndex((item) => item.id === id);
+			state.mediaItems[index].currentTime = time;
+		},
+		updatePlaybackSpeed: (id: string, speed: number) => {
+			const index = state.mediaItems.findIndex((item) => item.id === id);
+			state.mediaItems[index].speed = speed;
 		},
 		removeMediaItem: (id: string) => {
 			const index = state.mediaItems.findIndex((item) => item.id === id);

@@ -11,6 +11,8 @@ export type MediaItem = {
 	mediaType: MediaType;
 	naturalHeight: number;
 	naturalWidth: number;
+	currentTime: number;
+	speed: number;
 };
 
 export type Panorama = {
