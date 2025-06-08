@@ -39,9 +39,9 @@
 				Go back to frame selector
 			</button>
 		</div>
-	{:else if $query.isSuccess && appState.panorama.file}
+	{:else if $query.isSuccess && appState.panorama}
 		<img
-			src={appState.panorama.file.blobURL}
+			src={appState.panorama.blobURL}
 			style:width="inherit"
 			style:height="inherit"
 			alt="stitched panorama"

@@ -9,11 +9,7 @@ export const createState = () => {
 		selectedMediaItem: undefined,
 		mediaItems: [],
 		canvasItems: [],
-		panorama: {
-			isCreating: false,
-			imagesUpdated: false,
-			file: undefined
-		}
+		panorama: undefined
 	});
 
 	return {
@@ -125,8 +121,6 @@ export const createState = () => {
 				'image'
 			);
 
-			this.toggleImagesUpdated(true);
-
 			state.canvasItems.push({
 				id,
 				blobURL,
@@ -148,7 +142,6 @@ export const createState = () => {
 			});
 		},
 		clearCanvasItems() {
-			this.toggleImagesUpdated(false);
 			state.canvasItems = [];
 		},
 		setCropBox: (id: string, cropBox: [number, number, number, number]) => {
@@ -164,25 +157,11 @@ export const createState = () => {
 				'image'
 			);
 
-			this.toggleImagesUpdated(false);
-
-			state.panorama.file = {
+			state.panorama = {
 				blobURL,
 				naturalHeight,
 				naturalWidth
 			};
-		},
-		get imagesUpdated() {
-			return state.panorama.imagesUpdated;
-		},
-		toggleImagesUpdated: (newState?: boolean) => {
-			state.panorama.imagesUpdated = newState ? newState : !state.panorama.imagesUpdated;
-		},
-		get creatingPanorama() {
-			return state.panorama.isCreating;
-		},
-		toggleCreatingPanorama: (newState?: boolean) => {
-			state.panorama.isCreating = newState ? newState : !state.panorama.isCreating;
 		}
 	};
 };

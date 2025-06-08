@@ -4,13 +4,17 @@
 	import { appState } from '$lib/state.svelte';
 	import type { CanvasObject } from '$lib/types';
 	import { Aperture, Download } from '@lucide/svelte';
-	import { stitchCanvasImages } from '$lib/lib';
 	import { stepsStore } from '../steps.svelte';
+	import Modal from './Modal.svelte';
+	import JSZip from 'jszip';
 
 	let canvasEl: HTMLCanvasElement;
 	let canvasContainer: HTMLDivElement;
 	let fabricCanvas: Canvas;
 	let canvasItemIds = $derived(new Set(appState.canvasItems.map((item) => item.id)));
+	let modal: Modal;
+
+	let selectedItem = $state();
 
 	let toRemove = $derived(() => {
 		const currentObjects = (fabricCanvas?.getObjects() as CanvasObject[]) ?? [];
@@ -37,6 +41,43 @@
 		}
 	};
 
+	const downloadCanvas = () => {
+		if (appState.canvasItems.length === 0) return;
+
+		const dataURL = fabricCanvas.toDataURL({
+			format: 'png',
+			multiplier: 2
+		});
+
+		const link = document.createElement('a');
+		link.href = dataURL;
+		link.download = 'canvas.png';
+		link.click();
+	};
+
+	const downloadAllImages = async () => {
+		if (appState.canvasItems.length === 0) return;
+		const zip = new JSZip();
+		const folder = zip.folder('images');
+		if (!folder) return;
+
+		for (const item of appState.canvasItems) {
+			try {
+				const response = await fetch(item.blobURL);
+				const blob = await response.blob();
+				folder.file(`${item.id}.png`, blob);
+			} catch (err) {
+				console.error(`Failed to fetch image for ${item.id}`, err);
+			}
+		}
+
+		const zipBlob = await zip.generateAsync({ type: 'blob' });
+		const link = document.createElement('a');
+		link.href = URL.createObjectURL(zipBlob);
+		link.download = 'images.zip';
+		link.click();
+	};
+
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.key === 'Delete' || e.key === 'Backspace') {
 			const selected = fabricCanvas.getActiveObjects?.() ?? [];
@@ -54,9 +95,8 @@
 	const handleDoubleClick = (e: any) => {
 		const target = e.target as CanvasObject | undefined;
 		if (target && '_id' in target) {
-			alert(
-				`Double clicked asset with ID: ${target._id} (this will open a modal for cropping in next version)`
-			);
+			selectedItem = target._id;
+			modal.toggle();
 		}
 	};
 
@@ -125,25 +165,19 @@
 	});
 </script>
 
+<Modal bind:this={modal}>{selectedItem}</Modal>
+
 <div class="canvas relative flex flex-col gap-2">
 	<span class="pane-label">canvas</span>
 	<div class="flex gap-2">
-		<button onclick={() => stepsStore.setStep(2)}>
+		<button onclick={() => stepsStore.setStep(2)} disabled={appState.canvasItems.length < 2}>
 			<Aperture size={12} />create panorama
 		</button>
 		<button onclick={appState.clearCanvasItems}>clear selection</button>
-		<button
-			onclick={() => {
-				alert('yet to come');
-			}}
-		>
+		<button onclick={downloadAllImages}>
 			<Download size={12} /> images
 		</button>
-		<button
-			onclick={() => {
-				alert('yet to come');
-			}}
-		>
+		<button onclick={downloadCanvas}>
 			<Download size={12} /> canvas
 		</button>
 	</div>
