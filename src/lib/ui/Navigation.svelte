@@ -3,6 +3,8 @@
 	import { cn } from '$lib/lib';
 	import { appState } from '$lib/state.svelte';
 	import { stepsStore } from '$lib/steps.svelte';
+
+	let sufficientItems = $derived(appState.canvasItems.length < 2);
 </script>
 
 <nav>
@@ -10,16 +12,14 @@
 		{#each STEPS as step, index}
 			<li>
 				<button
-					title={index === 2 && appState.canvasItems.length === 0
-						? 'Please select some items to stitch first'
-						: ''}
+					title={index === 2 && sufficientItems ? 'Please select some items to stitch first' : ''}
 					onclick={() => stepsStore.setStep(index)}
 					class={cn(
 						stepsStore.currentStep === index && 'font-bold',
 						'cursor-pointer',
 						'border-0! bg-transparent! shadow-none! hover:bg-blue-100!'
 					)}
-					disabled={index === 2 && appState.canvasItems.length === 0}
+					disabled={index === 2 && sufficientItems}
 				>
 					<span
 						class={cn(

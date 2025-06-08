@@ -38,6 +38,7 @@
 	"dependencies": {
 		"@fontsource/inter": "5.2.5",
 		"@lucide/svelte": "0.510.0",
+		"@tanstack/svelte-query": "5.80.6",
 		"clsx": "2.1.1",
 		"fabric": "6.6.5",
 		"short-uuid": "5.2.0",

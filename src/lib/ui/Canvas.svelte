@@ -5,6 +5,7 @@
 	import type { CanvasObject } from '$lib/types';
 	import { Aperture, Download } from '@lucide/svelte';
 	import { stitchCanvasImages } from '$lib/lib';
+	import { stepsStore } from '../steps.svelte';
 
 	let canvasEl: HTMLCanvasElement;
 	let canvasContainer: HTMLDivElement;
@@ -13,6 +14,7 @@
 
 	let toRemove = $derived(() => {
 		const currentObjects = (fabricCanvas?.getObjects() as CanvasObject[]) ?? [];
+
 		return currentObjects.filter((obj) => !canvasItemIds.has(obj._id));
 	});
 
@@ -20,6 +22,7 @@
 		const currentObjects = (fabricCanvas?.getObjects() as CanvasObject[]) ?? [];
 
 		const currentIds = new Set(currentObjects.map((obj) => obj._id));
+
 		return appState.canvasItems.filter((item) => !currentIds.has(item.id));
 	});
 
@@ -125,7 +128,7 @@
 <div class="canvas relative flex flex-col gap-2">
 	<span class="pane-label">canvas</span>
 	<div class="flex gap-2">
-		<button onclick={() => stitchCanvasImages(appState.canvasItems)}>
+		<button onclick={() => stepsStore.setStep(2)}>
 			<Aperture size={12} />create panorama
 		</button>
 		<button onclick={appState.clearCanvasItems}>clear selection</button>

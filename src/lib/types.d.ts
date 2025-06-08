@@ -43,5 +43,9 @@ export type AppState = {
 	selectedMediaItem: string | undefined;
 	mediaItems: MediaItem[];
 	canvasItems: CanvasItem[];
-	panorama: Panorama | undefined;
+	panorama: {
+		isCreating: boolean;
+		imagesUpdated: boolean;
+		file: Panorama | undefined;
+	};
 };

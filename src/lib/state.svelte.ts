@@ -9,7 +9,11 @@ export const createState = () => {
 		selectedMediaItem: undefined,
 		mediaItems: [],
 		canvasItems: [],
-		panorama: undefined
+		panorama: {
+			isCreating: false,
+			imagesUpdated: false,
+			file: undefined
+		}
 	});
 
 	return {
@@ -94,8 +98,8 @@ export const createState = () => {
 			const index = state.canvasItems.findIndex((item) => item.id === id);
 
 			if (index !== -1) {
-				appState.canvasItems[index].x = x;
-				appState.canvasItems[index].y = y;
+				state.canvasItems[index].x = x;
+				state.canvasItems[index].y = y;
 			}
 		},
 		updateTransform: (
@@ -105,7 +109,7 @@ export const createState = () => {
 			const index = state.canvasItems.findIndex((item) => item.id === id);
 
 			if (index !== -1) {
-				const item = appState.canvasItems[index];
+				const item = state.canvasItems[index];
 				if (updates.scaleX !== undefined) item.scaleX = updates.scaleX;
 				if (updates.scaleY !== undefined) item.scaleY = updates.scaleY;
 				if (updates.angle !== undefined) item.angle = updates.angle;
@@ -113,13 +117,15 @@ export const createState = () => {
 				if (updates.y !== undefined) item.y = updates.y;
 			}
 		},
-		addToCanvas: async (sourceId: string, blobURL: string) => {
+		async addToCanvas(sourceId: string, blobURL: string) {
 			const id = uuid();
 
 			const { width: naturalWidth, height: naturalHeight } = await getMediaDimensions(
 				blobURL,
 				'image'
 			);
+
+			this.toggleImagesUpdated(true);
 
 			state.canvasItems.push({
 				id,
@@ -141,7 +147,8 @@ export const createState = () => {
 				state.canvasItems.splice(index, 1);
 			});
 		},
-		clearCanvasItems: () => {
+		clearCanvasItems() {
+			this.toggleImagesUpdated(false);
 			state.canvasItems = [];
 		},
 		setCropBox: (id: string, cropBox: [number, number, number, number]) => {
@@ -151,17 +158,31 @@ export const createState = () => {
 		get panorama() {
 			return state.panorama;
 		},
-		setPanorama: async (blobURL: string) => {
+		async setPanorama(blobURL: string) {
 			const { width: naturalWidth, height: naturalHeight } = await getMediaDimensions(
 				blobURL,
 				'image'
 			);
 
-			state.panorama = {
+			this.toggleImagesUpdated(false);
+
+			state.panorama.file = {
 				blobURL,
 				naturalHeight,
 				naturalWidth
 			};
+		},
+		get imagesUpdated() {
+			return state.panorama.imagesUpdated;
+		},
+		toggleImagesUpdated: (newState?: boolean) => {
+			state.panorama.imagesUpdated = newState ? newState : !state.panorama.imagesUpdated;
+		},
+		get creatingPanorama() {
+			return state.panorama.isCreating;
+		},
+		toggleCreatingPanorama: (newState?: boolean) => {
+			state.panorama.isCreating = newState ? newState : !state.panorama.isCreating;
 		}
 	};
 };

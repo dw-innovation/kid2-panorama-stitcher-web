@@ -39,15 +39,16 @@ export const handleDownload = (id: string) => {
 	document.body.removeChild(link);
 };
 
-export const stitchCanvasImages = async (canvasItems: CanvasItem[]) => {
+export const stitchCanvasImages = async (canvasItems: CanvasItem[]): Promise<string> => {
 	const formData = new FormData();
 
 	for (const item of canvasItems) {
 		const response = await fetch(item.blobURL);
+		if (!response.ok) {
+			throw new Error(`Failed to fetch image: ${item.blobURL}`);
+		}
 		const blob = await response.blob();
-
 		const file = new File([blob], `${item.sourceId || item.id}.png`, { type: blob.type });
-
 		formData.append('images', file);
 	}
 
@@ -58,17 +59,21 @@ export const stitchCanvasImages = async (canvasItems: CanvasItem[]) => {
 		});
 
 		if (!response.ok) {
-			const error = await response.json();
-			console.error('Stitching error:', error);
-			return;
+			let message = 'Failed to stitch images';
+			try {
+				const error = await response.json();
+				message = error?.message || message;
+			} catch {
+				// keep default message
+			}
+			throw new Error(message);
 		}
 
 		const stitchedBlob = await response.blob();
-		const stitchedURL = URL.createObjectURL(stitchedBlob);
-
-		appState.setPanorama(stitchedURL);
-		stepsStore.nextStep();
+		return URL.createObjectURL(stitchedBlob);
 	} catch (err) {
-		console.error('Failed to send images:', err);
+		appState.toggleCreatingPanorama(false);
+		console.error('Stitching failed:', err);
+		throw err instanceof Error ? err : new Error('Unknown stitching error');
 	}
 };
