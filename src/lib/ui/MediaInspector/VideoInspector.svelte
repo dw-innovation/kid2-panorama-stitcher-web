@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { appState } from '$lib/state.svelte';
-	import { ImagePlus, FileDown } from '@lucide/svelte';
-	import { onDestroy, onMount } from 'svelte';
+	import { ImagePlus, FileDown, Expand } from '@lucide/svelte';
+	import { onMount } from 'svelte';
 	import VideoPlayer from './VideoPlayer.svelte';
 	import { handleDownload } from '$lib/lib';
+	import Modal from '../Modal.svelte';
 
 	let videoElement: HTMLVideoElement;
 
@@ -41,15 +42,22 @@
 
 	onMount(() => {
 		window.addEventListener('keydown', handleKeyDown);
+		return () => {
+			window.removeEventListener('keydown', handleKeyDown);
+		};
 	});
 
-	onDestroy(() => {
-		window.removeEventListener('keydown', handleKeyDown);
-	});
+	let modal: Modal;
 </script>
 
+<Modal bind:this={modal}>full size selector (yet to come)</Modal>
+
 <div class="mediaInspector relative h-full max-h-full flex-none">
-	<span class="pane-label">video inspector</span>
+	<span class="pane-label">
+		<span>video inspector</span>
+
+		<button class="button--ghost" onclick={() => modal.toggle(true)}><Expand size={12} /></button>
+	</span>
 
 	<div class="flex h-full flex-col">
 		<div class="flex gap-2">

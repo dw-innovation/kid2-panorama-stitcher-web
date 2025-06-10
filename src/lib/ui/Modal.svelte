@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { X } from '@lucide/svelte';
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import type { Snippet } from 'svelte';
 
 	let {
@@ -46,11 +46,11 @@
 
 {#if isOpen}
 	<div class="fixed inset-0 z-40 flex items-center justify-center bg-white/20! backdrop-blur-xs">
-		<div class="z-50 rounded-sm bg-white p-4 shadow-lg" bind:this={modalRef}>
-			<button onclick={() => toggle(false)} class="border-none shadow-none">
+		<div class="relative z-50 rounded-sm bg-white p-4 shadow-lg" bind:this={modalRef}>
+			<button onclick={() => toggle(false)} class="button--ghost absolute top-2 right-2">
 				<X />
 			</button>
-			<div>
+			<div class="mt-4">
 				{@render children()}
 			</div>
 		</div>

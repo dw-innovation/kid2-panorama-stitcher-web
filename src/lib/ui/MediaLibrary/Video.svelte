@@ -13,7 +13,7 @@
 	};
 </script>
 
-<div class="group relative h-full flex-none">
+<div class="group relative z-30 h-full flex-none">
 	<VideoElement blobURL={mediaItem.blobURL} id={mediaItem.id} />
 	<AddToInspectorOverlay {mediaItem} />
 

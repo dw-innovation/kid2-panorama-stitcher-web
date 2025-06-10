@@ -50,7 +50,10 @@ button {
 }
 
 .pane-label {
-	@apply absolute top-0 left-0 z-20 w-full bg-gray-200 px-2 py-1 font-sans text-xs font-bold tracking-wide text-gray-700 uppercase select-none;
+	@apply absolute top-0 left-0 z-20 flex w-full justify-between bg-gray-200 px-2 py-1 font-sans text-xs font-bold tracking-wide text-gray-700 uppercase select-none;
+}
+.button--ghost {
+	@apply m-0 flex cursor-pointer border-0 bg-transparent p-0 shadow-none;
 }
 
 .mediaLibrary-button {

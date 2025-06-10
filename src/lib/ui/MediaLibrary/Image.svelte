@@ -63,7 +63,7 @@
 			style:width="calc(100% + 1rem)"
 		></div>
 	{/if}
-	<div class={cn('group relative z-50 h-full flex-none')} style:width="max-content">
+	<div class="group relative z-50 h-full flex-none" style:width="max-content">
 		<ImageElement blobURL={mediaItem.blobURL} id={mediaItem.id} />
 
 		<AddToInspectorOverlay {mediaItem} />
