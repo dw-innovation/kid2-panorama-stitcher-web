@@ -7,7 +7,6 @@
 	import { stepsStore } from '../steps.svelte';
 	import Modal from './Modal.svelte';
 	import JSZip from 'jszip';
-	import { modalsState } from '../modals.svelte';
 
 	let canvasEl: HTMLCanvasElement;
 	let canvasContainer: HTMLDivElement;
