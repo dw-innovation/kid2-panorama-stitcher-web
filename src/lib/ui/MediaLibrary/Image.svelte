@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { MediaItem } from '$lib/types';
-	import { FileDown, Trash } from '@lucide/svelte';
+	import { Blocks, FileDown, Trash } from '@lucide/svelte';
 	import ImageElement from './ImageElement.svelte';
 	import AddToInspectorOverlay from './AddToInspectorOverlay.svelte';
 	import { appState } from '$lib/state.svelte';
@@ -71,11 +71,22 @@
 		<div
 			class="absolute top-2 right-2 z-20 flex gap-1 opacity-0 transition-all group-hover:opacity-100"
 		>
-			<button onclick={downloadAsJPEG} class="mediaLibrary-button">
-				<FileDown size={15} />
+			<button
+				onclick={() => appState.addToCanvas(mediaItem.id, mediaItem.blobURL)}
+				class="mediaLibrary-button"
+				title="add to canvas"
+			>
+				<Blocks size={15} />
 			</button>
+			<!-- 			<button onclick={downloadAsJPEG} class="mediaLibrary-button">
+				<FileDown size={15} />
+			</button> -->
 
-			<button onclick={handleRemove} class="mediaLibrary-button">
+			<button
+				onclick={handleRemove}
+				disabled={appState.mediaItems.some((item) => item.sourceId === mediaItem.id)}
+				class="mediaLibrary-button"
+			>
 				<Trash size={15} />
 			</button>
 		</div>

@@ -24,7 +24,11 @@
 			<FileDown size={15} />
 		</button>
 
-		<button onclick={handleRemove} class="mediaLibrary-button">
+		<button
+			onclick={handleRemove}
+			class="mediaLibrary-button"
+			disabled={appState.mediaItems.some((item) => item.sourceId === mediaItem.id)}
+		>
 			<Trash size={15} />
 		</button>
 	</div>
