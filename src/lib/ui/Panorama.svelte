@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Image from './Panorama/Image.svelte';
+	import Panorama from './Panorama/Panorama.svelte';
 </script>
 
-<Image />
+<Panorama />
