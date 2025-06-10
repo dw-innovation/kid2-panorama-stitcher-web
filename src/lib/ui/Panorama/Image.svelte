@@ -29,9 +29,12 @@
 			<p class="text-sm text-gray-700">Stitching your selected frames into a panorama…</p>
 		</div>
 	{:else if $query.isError}
-		<div class="max-w-md rounded-md border border-red-300 bg-red-100 p-4 text-center text-red-800">
+		<div
+			class="flex max-w-md flex-col justify-center gap-2 rounded-md border border-red-300 bg-red-100 p-4 text-center text-red-800"
+		>
 			<p class="font-semibold">Failed to generate panorama:</p>
-			<p class="mt-1 text-sm">{$query.error.message}</p>
+			<p class="text-sm">{$query.error.message}</p>
+			<p class="text-sm">Tip: Select images with enough overlap.</p>
 			<button
 				class="mt-4 inline rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700"
 				onclick={() => stepsStore.setStep(1)}
