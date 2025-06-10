@@ -126,7 +126,7 @@
 		window.addEventListener('keydown', handleKeyDown);
 		window.addEventListener('resize', resizeCanvas);
 
-		onDestroy(() => {
+		return () => {
 			window.removeEventListener('resize', resizeCanvas);
 			window.removeEventListener('keydown', handleKeyDown);
 
@@ -134,7 +134,7 @@
 			fabricCanvas.off('mouse:dblclick', handleDoubleClick);
 
 			fabricCanvas.dispose();
-		});
+		};
 	});
 
 	$effect(() => {
