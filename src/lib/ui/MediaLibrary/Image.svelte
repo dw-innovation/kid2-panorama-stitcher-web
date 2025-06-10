@@ -59,7 +59,7 @@
 <div class:pt-6={mediaItem.sourceId} class="relative">
 	{#if mediaItem.sourceId}
 		<div
-			class="absolute top-4 -left-2 h-2 -translate-x-1/2 border-t-2 border-r-2 border-[#5b5b5b] shadow-2xs"
+			class="absolute top-4 -left-2 h-2 -translate-x-1/2 border-t-2 border-r-2 border-[#5b5b5b]"
 			style:width="calc(100% + 0.5rem)"
 		></div>
 	{/if}
