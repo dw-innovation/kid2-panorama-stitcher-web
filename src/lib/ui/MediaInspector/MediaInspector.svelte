@@ -6,9 +6,9 @@
 </script>
 
 {#if appState.selectedMediaItem?.mediaType === 'image'}
-	<ImageInspector />
+	<ImageInspector mediaItem={appState.selectedMediaItem} />
 {:else if appState.selectedMediaItem?.mediaType === 'video'}
-	<VideoInspector />
+	<VideoInspector mediaItem={appState.selectedMediaItem} />
 {:else}
 	<div class="mediaInspector relative h-full max-h-full flex-none">
 		<span class="pane-label">media inspector</span>

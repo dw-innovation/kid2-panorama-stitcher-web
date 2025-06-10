@@ -4,16 +4,15 @@
 	import Magnifier from './Magnifier.svelte';
 	import { onMount } from 'svelte';
 	import { handleDownload } from '$src/lib/lib';
+	import type { MediaItem } from '$src/lib/types';
+
+	let { mediaItem }: { mediaItem: MediaItem } = $props();
 
 	const handleAddToCanvas = () => {
 		// if images is already on the canvas or selectedMediaItem is undefined return
-		if (
-			!appState.selectedMediaItem ||
-			appState.canvasItems.some((item) => item.sourceId === appState.selectedMediaItem?.id)
-		)
-			return;
+		if (!mediaItem || appState.canvasItems.some((item) => item.sourceId === mediaItem?.id)) return;
 
-		const item = appState.selectedMediaItem;
+		const item = mediaItem;
 		appState.addToCanvas(item.id, item.blobURL);
 	};
 
@@ -37,28 +36,20 @@
 		<div class="flex gap-2">
 			<button
 				onclick={handleAddToCanvas}
-				disabled={!appState.selectedMediaItem ||
-					appState.canvasItems.some((item) => item.sourceId === appState.selectedMediaItem?.id)}
+				disabled={!mediaItem ||
+					appState.canvasItems.some((item) => item.sourceId === mediaItem?.id)}
 			>
 				<ImagePlus size={12} />
 				add to canvas <kbd>a</kbd>
 			</button>
-			<button
-				onclick={() =>
-					appState.selectedMediaItem?.id && handleDownload(appState.selectedMediaItem?.id)}
-			>
+			<button onclick={() => mediaItem?.id && handleDownload(mediaItem.blobURL, mediaItem?.id)}>
 				<FileDown size={12} />
 				download
 			</button>
 		</div>
 
 		<div class="relative flex h-full flex-1 items-center justify-center overflow-hidden">
-			<Magnifier
-				src={appState.selectedMediaItem?.blobURL}
-				height="fit-content"
-				alt=""
-				className="h-[inherit]"
-			/>
+			<Magnifier src={mediaItem?.blobURL} height="fit-content" alt="" className="h-[inherit]" />
 		</div>
 	</div>
 </div>

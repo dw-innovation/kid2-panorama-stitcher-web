@@ -20,7 +20,10 @@
 	<div
 		class="absolute top-2 right-2 z-20 flex gap-1 opacity-0 transition-all group-hover:opacity-100"
 	>
-		<button onclick={() => handleDownload(mediaItem.id)} class="mediaLibrary-button">
+		<button
+			onclick={() => handleDownload(mediaItem.blobURL, mediaItem.id)}
+			class="mediaLibrary-button"
+		>
 			<FileDown size={15} />
 		</button>
 

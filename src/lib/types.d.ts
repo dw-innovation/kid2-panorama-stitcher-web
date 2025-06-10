@@ -14,6 +14,7 @@ export type MediaItem = {
 	naturalWidth: number;
 	currentTime: number;
 	speed: number;
+	timestamp?: number;
 };
 
 export type Panorama = {

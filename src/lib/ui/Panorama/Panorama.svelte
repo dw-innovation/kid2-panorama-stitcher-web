@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { stitchCanvasImages } from '$lib/lib';
+	import { handleDownload, stitchCanvasImages } from '$lib/lib';
 	import { appState } from '$src/lib/state.svelte';
 	import { stepsStore } from '$src/lib/steps.svelte';
+	import { ArrowLeft, Download } from '@lucide/svelte';
 	import { createQuery } from '@tanstack/svelte-query';
 
 	let sufficientItems = $derived(appState.canvasItems.length > 1);
@@ -45,12 +46,27 @@
 			</button>
 		</div>
 	{:else if $query.isSuccess && appState.panorama}
-		<img
-			src={appState.panorama.blobURL}
-			style:width="inherit"
-			style:height="inherit"
-			alt="stitched panorama"
-		/>
+		<div class="flex h-full flex-col items-center gap-2">
+			<div class="flex gap-2">
+				<button onclick={() => stepsStore.setStep(1)} class="inline-block w-fit">
+					<ArrowLeft size={15} /> Go back to frame selector
+				</button>
+				<button
+					onclick={() =>
+						appState.panorama?.blobURL && handleDownload(appState.panorama?.blobURL, 'panorama')}
+					class="inline-block w-fit"
+				>
+					<Download size={15} /> Panorama
+				</button>
+			</div>
+			<img
+				class="flex-1"
+				src={appState.panorama.blobURL}
+				style:width="inherit"
+				style:height="inherit"
+				alt="stitched panorama"
+			/>
+		</div>
 	{/if}
 
 	{#if !sufficientItems}

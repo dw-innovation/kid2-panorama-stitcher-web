@@ -26,13 +26,10 @@ export const getMediaDimensions = (
 		}
 	});
 
-export const handleDownload = (id: string) => {
-	const mediaItem = appState.mediaItems.find((item) => item.id === id);
-	if (!mediaItem) return;
-
+export const handleDownload = (url: string, name: string) => {
 	const link = document.createElement('a');
-	link.href = mediaItem.blobURL;
-	link.download = mediaItem.id;
+	link.href = url;
+	link.download = name;
 	document.body.appendChild(link);
 	link.click();
 	document.body.removeChild(link);

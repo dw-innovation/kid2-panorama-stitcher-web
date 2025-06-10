@@ -5,13 +5,16 @@
 	import VideoPlayer from './VideoPlayer.svelte';
 	import { handleDownload } from '$lib/lib';
 	import Modal from '../Modal.svelte';
+	import type { MediaItem } from '$src/lib/types';
 
 	let videoElement: HTMLVideoElement;
 
-	const handleCaptureFrame = async () => {
-		if (!videoElement || !appState.selectedMediaItem) return;
+	let { mediaItem }: { mediaItem: MediaItem } = $props();
 
-		const selectedItem = appState.selectedMediaItem;
+	const handleCaptureFrame = async (videoElement: HTMLVideoElement, mediaItem: MediaItem) => {
+		if (!videoElement || !mediaItem) return;
+
+		const selectedItem = mediaItem;
 		const { videoWidth: width, videoHeight: height } = videoElement;
 
 		const canvas = Object.assign(document.createElement('canvas'), { width, height });
@@ -26,24 +29,33 @@
 			const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
 			const filename = `frame-${timestamp}.png`;
 			const file = new File([blob], filename, { type: 'image/png' });
+			const newItem = await appState.addMediaItem(
+				file,
+				`Frame @ ${timestamp}`,
+				selectedItem.id,
+				timestamp
+			);
 
-			const newItem = await appState.addMediaItem(file, `Frame @ ${timestamp}`, selectedItem.id);
 			if (newItem) {
 				appState.addToCanvas(newItem.id, newItem.blobURL);
 			}
 		}, 'image/png');
 	};
 
-	const handleKeyDown = (e: KeyboardEvent) => {
+	const handleKeyDown = (
+		e: KeyboardEvent,
+		videoElement: HTMLVideoElement,
+		mediaItem: MediaItem
+	) => {
 		if (e.key === 'c' || e.key === 'C') {
-			handleCaptureFrame();
+			handleCaptureFrame(videoElement, mediaItem);
 		}
 	};
 
 	onMount(() => {
-		window.addEventListener('keydown', handleKeyDown);
+		window.addEventListener('keydown', (e) => handleKeyDown(e, videoElement, mediaItem));
 		return () => {
-			window.removeEventListener('keydown', handleKeyDown);
+			window.removeEventListener('keydown', (e) => handleKeyDown(e, videoElement, mediaItem));
 		};
 	});
 
@@ -61,22 +73,19 @@
 
 	<div class="flex h-full flex-col">
 		<div class="flex gap-2">
-			<button onclick={handleCaptureFrame} disabled={!appState.selectedMediaItem}>
+			<button onclick={() => handleCaptureFrame(videoElement, mediaItem)} disabled={!mediaItem}>
 				<ImagePlus size={12} />
 				capture frame <kbd>c</kbd>
 			</button>
-			<button
-				onclick={() =>
-					appState.selectedMediaItem?.id && handleDownload(appState.selectedMediaItem?.id)}
-			>
+			<button onclick={() => mediaItem?.id && handleDownload(mediaItem.blobURL, mediaItem?.id)}>
 				<FileDown size={12} />
 				download
 			</button>
 		</div>
 
 		<div class="relative flex h-full flex-1 items-center justify-center overflow-hidden">
-			{#if appState.selectedMediaItem}
-				<VideoPlayer mediaItem={appState.selectedMediaItem} bind:videoElement />
+			{#if mediaItem}
+				<VideoPlayer {mediaItem} bind:videoElement />
 			{/if}
 		</div>
 	</div>

@@ -23,7 +23,8 @@ export const createState = () => {
 		addMediaItem: async (
 			file: File,
 			label?: string,
-			sourceId?: string | undefined
+			sourceId?: string | undefined,
+			timestamp?: string
 		): Promise<{ id: string; blobURL: string } | undefined> => {
 			let mediaType: MediaType;
 
@@ -54,7 +55,8 @@ export const createState = () => {
 				naturalWidth,
 				naturalHeight,
 				currentTime: 0,
-				speed: 1
+				speed: 1,
+				...[timestamp ? { timestamp: timestamp } : {}]
 			};
 
 			if (sourceId) {
@@ -134,8 +136,8 @@ export const createState = () => {
 				cropBox: [0, 0, 1, 1],
 				naturalHeight,
 				naturalWidth,
-				x: 0,
-				y: 0,
+				x: state.canvasItems.length * 20,
+				y: state.canvasItems.length * 20,
 				angle: undefined,
 				scaleX: undefined,
 				scaleY: undefined
