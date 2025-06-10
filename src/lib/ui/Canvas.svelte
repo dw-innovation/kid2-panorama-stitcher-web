@@ -165,7 +165,12 @@
 	});
 </script>
 
-<Modal bind:this={modal}>{selectedItem}</Modal>
+<Modal bind:this={modal}>
+	crop box for
+	{selectedItem}
+
+	<p>feature is yet to come</p>
+</Modal>
 
 <div class="canvas relative flex flex-col gap-2">
 	<span class="pane-label">canvas</span>
