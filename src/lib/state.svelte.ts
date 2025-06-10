@@ -76,6 +76,8 @@ export const createState = () => {
 			state.mediaItems[index].speed = speed;
 		},
 		removeMediaItem: (id: string) => {
+			if (state.mediaItems.some((item) => item.sourceId === id)) return;
+
 			const index = state.mediaItems.findIndex((item) => item.id === id);
 			state.mediaItems.splice(index, 1);
 		},
