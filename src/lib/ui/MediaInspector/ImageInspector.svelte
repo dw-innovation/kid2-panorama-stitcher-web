@@ -2,11 +2,19 @@
 	import { appState } from '$lib/state.svelte';
 	import { ImagePlus, FileDown } from '@lucide/svelte';
 	import Magnifier from './Magnifier.svelte';
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
+	import { handleDownload } from '$src/lib/lib';
 
 	const handleAddToCanvas = () => {
+		// if images is already on the canvas or selectedMediaItem is undefined return
+		if (
+			!appState.selectedMediaItem ||
+			appState.canvasItems.some((item) => item.sourceId === appState.selectedMediaItem?.id)
+		)
+			return;
+
 		const item = appState.selectedMediaItem;
-		if (item) appState.addToCanvas(item.id, item.blobURL);
+		appState.addToCanvas(item.id, item.blobURL);
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
@@ -17,10 +25,8 @@
 
 	onMount(() => {
 		window.addEventListener('keydown', handleKeyDown);
-	});
 
-	onDestroy(() => {
-		window.removeEventListener('keydown', handleKeyDown);
+		return () => window.removeEventListener('keydown', handleKeyDown);
 	});
 </script>
 
@@ -29,11 +35,18 @@
 
 	<div class="flex h-full flex-col gap-2">
 		<div class="flex gap-2">
-			<button onclick={handleAddToCanvas} disabled={!appState.selectedMediaItem}>
+			<button
+				onclick={handleAddToCanvas}
+				disabled={!appState.selectedMediaItem ||
+					appState.canvasItems.some((item) => item.sourceId === appState.selectedMediaItem?.id)}
+			>
 				<ImagePlus size={12} />
 				add to canvas <kbd>a</kbd>
 			</button>
-			<button onclick={() => {}}>
+			<button
+				onclick={() =>
+					appState.selectedMediaItem?.id && handleDownload(appState.selectedMediaItem?.id)}
+			>
 				<FileDown size={12} />
 				download
 			</button>
@@ -44,7 +57,7 @@
 				src={appState.selectedMediaItem?.blobURL}
 				height="fit-content"
 				alt=""
-				className=" h-[inherit]"
+				className="h-[inherit]"
 			/>
 		</div>
 	</div>

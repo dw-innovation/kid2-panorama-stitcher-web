@@ -9,7 +9,11 @@ export const createState = () => {
 		selectedMediaItem: undefined,
 		mediaItems: [],
 		canvasItems: [],
-		panorama: undefined
+		panorama: undefined,
+		consents: {
+			processing: false,
+			tracking: false
+		}
 	});
 
 	return {
@@ -162,6 +166,12 @@ export const createState = () => {
 				naturalHeight,
 				naturalWidth
 			};
+		},
+		get consents() {
+			return state.consents;
+		},
+		toggleConsent: (type: keyof typeof state.consents, newState?: boolean) => {
+			state.consents[type] = newState !== undefined ? newState : !state.consents[type];
 		}
 	};
 };

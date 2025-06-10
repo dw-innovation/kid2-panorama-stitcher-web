@@ -1,4 +1,5 @@
 import type { FabricObject } from 'fabric';
+import type { Component } from 'svelte';
 
 export type MediaType = 'video' | 'image';
 
@@ -44,4 +45,13 @@ export type AppState = {
 	mediaItems: MediaItem[];
 	canvasItems: CanvasItem[];
 	panorama: Panorama | undefined;
+	consents: {
+		processing: boolean;
+		tracking: boolean;
+	};
+};
+
+export type ModalType = {
+	name: string;
+	component: Component;
 };

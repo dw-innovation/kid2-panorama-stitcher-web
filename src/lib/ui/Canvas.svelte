@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { onMount, onDestroy, tick } from 'svelte';
-	import { Canvas, FabricImage, type ModifiedEvent, type TEvent, type TPointerEvent } from 'fabric';
+	import { Canvas, FabricImage, type ModifiedEvent, type TPointerEvent } from 'fabric';
 	import { appState } from '$lib/state.svelte';
 	import type { CanvasObject } from '$lib/types';
 	import { Aperture, Download } from '@lucide/svelte';
 	import { stepsStore } from '../steps.svelte';
 	import Modal from './Modal.svelte';
 	import JSZip from 'jszip';
+	import { modalsState } from '../modals.svelte';
 
 	let canvasEl: HTMLCanvasElement;
 	let canvasContainer: HTMLDivElement;

@@ -3,7 +3,6 @@ import { clsx, type ClassValue } from 'clsx';
 import type { CanvasItem, MediaType } from './types';
 import { appState } from './state.svelte';
 import { PUBLIC_STITCH_API } from '$env/static/public';
-import { stepsStore } from './steps.svelte';
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
@@ -72,7 +71,6 @@ export const stitchCanvasImages = async (canvasItems: CanvasItem[]): Promise<str
 		const stitchedBlob = await response.blob();
 		return URL.createObjectURL(stitchedBlob);
 	} catch (err) {
-		appState.toggleCreatingPanorama(false);
 		console.error('Stitching failed:', err);
 		throw err instanceof Error ? err : new Error('Unknown stitching error');
 	}
