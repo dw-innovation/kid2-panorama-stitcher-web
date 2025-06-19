@@ -106,11 +106,15 @@ export const createState = () => {
 		},
 		updatePlaybackTime: (id: string, time: number) => {
 			const index = state.mediaItems.findIndex((item) => item.id === id);
-			state.mediaItems[index].currentTime = time;
+			if (index !== -1) {
+				state.mediaItems[index].currentTime = time;
+			}
 		},
 		updatePlaybackSpeed: (id: string, speed: number) => {
 			const index = state.mediaItems.findIndex((item) => item.id === id);
-			state.mediaItems[index].speed = speed;
+			if (index !== -1) {
+				state.mediaItems[index].speed = speed;
+			}
 		},
 		removeMediaItem(id: string) {
 			pushToHistory();
@@ -118,7 +122,9 @@ export const createState = () => {
 			if (state.mediaItems.some((item) => item.sourceId === id)) return;
 
 			const index = state.mediaItems.findIndex((item) => item.id === id);
-			state.mediaItems.splice(index, 1);
+			if (index !== -1) {
+				state.mediaItems.splice(index, 1);
+			}
 		},
 		selectMediaItem: (id: string) => {
 			const index = state.mediaItems.findIndex((item) => item.id === id);
@@ -135,7 +141,9 @@ export const createState = () => {
 			pushToHistory();
 
 			const index = state.mediaItems.findIndex((item) => item.id === id);
-			state.mediaItems[index].label = newLabel;
+			if (index !== -1) {
+				state.mediaItems[index].label = newLabel;
+			}
 		},
 		updatePosition(id: string, x: number, y: number) {
 			pushToHistory();
@@ -193,7 +201,9 @@ export const createState = () => {
 
 			ids.forEach((id) => {
 				const index = state.canvasItems.findIndex((item) => item.id === id);
-				state.canvasItems.splice(index, 1);
+				if (index !== -1) {
+					state.canvasItems.splice(index, 1);
+				}
 			});
 		},
 		clearCanvasItems() {
