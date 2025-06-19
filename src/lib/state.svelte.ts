@@ -48,19 +48,9 @@ export const createState = () => {
 
 			let mediaType: MediaType;
 
-			const allowedImageTypes = [
-				'image/png',
-				'image/jpeg',
-				'image/jpg',
-				'image/webp'
-			];
+			const allowedImageTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
 
-			const allowedVideoTypes = [
-				'video/mp4',
-				'video/webm',
-				'video/quicktime',
-				'video/x-msvideo'
-			];
+			const allowedVideoTypes = ['video/mp4', 'video/webm', 'video/quicktime', 'video/x-msvideo'];
 
 			if (allowedImageTypes.includes(file.type)) {
 				mediaType = 'image';
@@ -173,6 +163,8 @@ export const createState = () => {
 			}
 		},
 		async addToCanvas(sourceId: string, blobURL: string) {
+			if (state.canvasItems.some((item) => item.sourceId === sourceId)) return;
+
 			pushToHistory();
 
 			const id = uuid();
