@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { handleDownload } from '$lib/lib';
 
-	import { appState } from '$src/lib/state.svelte';
+	import { appState } from '$lib/state.svelte';
 	import { FileDown, ImagePlus } from '@lucide/svelte';
 	import VideoPlayer from './VideoPlayer.svelte';
-	import type { MediaItem } from '$src/lib/types';
+	import type { MediaItem } from '$lib/types';
 	import { onMount } from 'svelte';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();

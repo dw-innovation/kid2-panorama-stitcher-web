@@ -3,8 +3,8 @@
 	import { ImagePlus, FileDown } from '@lucide/svelte';
 	import Magnifier from './Magnifier.svelte';
 	import { onMount } from 'svelte';
-	import { handleDownload } from '$src/lib/lib';
-	import type { MediaItem } from '$src/lib/types';
+	import { handleDownload } from '$lib/lib';
+	import type { MediaItem } from '$lib/types';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();
 

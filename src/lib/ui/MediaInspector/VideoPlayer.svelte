@@ -11,7 +11,7 @@
 	} from '@lucide/svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import { VolumeX, Volume2 } from '@lucide/svelte';
-	import { appState } from '$src/lib/state.svelte';
+	import { appState } from '$lib/state.svelte';
 
 	let {
 		mediaItem,
