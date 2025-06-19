@@ -46,7 +46,7 @@
 	}
 
 	function onTouchMove(e: TouchEvent) {
-		if (imgBounds) {
+		if (imgBounds && e.targetTouches.length > 0) {
 			const target = e.target as HTMLElement;
 			const _relX = (e.targetTouches[0].clientX - imgBounds.left) / target.clientWidth;
 			const _relY = (e.targetTouches[0].clientY - imgBounds.top) / target.clientHeight;
