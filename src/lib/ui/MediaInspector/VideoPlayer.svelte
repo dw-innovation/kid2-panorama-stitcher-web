@@ -16,7 +16,7 @@
 	let {
 		mediaItem,
 		videoElement = $bindable()
-	}: { mediaItem: MediaItem; videoElement: HTMLVideoElement } = $props();
+	}: { mediaItem: MediaItem; videoElement: HTMLVideoElement | undefined } = $props();
 
 	let isPlaying = $state(false);
 	let currentTime = $state(mediaItem.currentTime ?? 0);
@@ -31,6 +31,7 @@
 	};
 
 	const togglePlay = () => {
+		if (!videoElement) return;
 		if (videoElement.paused) {
 			videoElement.play();
 			isPlaying = true;
@@ -41,22 +42,27 @@
 	};
 
 	const rewind = () => {
+		if (!videoElement) return;
 		videoElement.currentTime = Math.max(0, videoElement.currentTime - 5);
 	};
 
 	const forward = () => {
+		if (!videoElement) return;
 		videoElement.currentTime = Math.min(duration, videoElement.currentTime + 5);
 	};
 
 	const onTimeUpdate = () => {
+		if (!videoElement) return;
 		currentTime = videoElement.currentTime;
 	};
 
 	const onLoadedMetadata = () => {
+		if (!videoElement) return;
 		duration = videoElement.duration;
 	};
 
 	const onSliderInput = (e: Event) => {
+		if (!videoElement) return;
 		const val = parseFloat((e.target as HTMLInputElement).value);
 		videoElement.currentTime = val;
 	};
@@ -96,11 +102,13 @@
 	};
 
 	const stepForward = () => {
+		if (!videoElement) return;
 		const fps = 25;
 		videoElement.currentTime = Math.min(duration, videoElement.currentTime + 1 / fps);
 	};
 
 	const stepBackward = () => {
+		if (!videoElement) return;
 		const fps = 25;
 		videoElement.currentTime = Math.max(0, videoElement.currentTime - 1 / fps);
 	};

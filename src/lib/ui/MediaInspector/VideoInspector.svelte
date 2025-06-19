@@ -9,9 +9,9 @@
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();
 
-	let videoElement: HTMLVideoElement;
+	let videoElement: HTMLVideoElement | undefined = $state();
 
-	const handleCaptureFrame = async (videoElement: HTMLVideoElement, mediaItem: MediaItem) => {
+	const handleCaptureFrame = async (videoElement: HTMLVideoElement | undefined, mediaItem: MediaItem) => {
 		if (!videoElement || !mediaItem) return;
 
 		const selectedItem = mediaItem;
@@ -45,7 +45,7 @@
 
 	const handleKeyDown = (
 		e: KeyboardEvent,
-		videoElement: HTMLVideoElement,
+		videoElement: HTMLVideoElement | undefined,
 		mediaItem: MediaItem
 	) => {
 		if (e.key === 'c' || e.key === 'C') {
@@ -63,7 +63,7 @@
 
 <div class="relative flex h-full flex-col">
 	<div class="flex gap-2">
-		<button onclick={() => handleCaptureFrame(videoElement, mediaItem)} disabled={!mediaItem}>
+		<button onclick={() => handleCaptureFrame(videoElement, mediaItem)} disabled={!mediaItem || !videoElement}>
 			<ImagePlus size={12} />
 			capture frame <kbd>c</kbd>
 		</button>
