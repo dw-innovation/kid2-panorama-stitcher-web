@@ -9,7 +9,7 @@
 		disabled = false
 	}: { label: string; children: Snippet; disabled?: boolean } = $props();
 
-	let modal: Modal;
+	let modal: Modal | undefined = $state();
 
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (disabled) return;
