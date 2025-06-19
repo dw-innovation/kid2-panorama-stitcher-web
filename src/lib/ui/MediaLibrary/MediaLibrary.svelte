@@ -12,7 +12,7 @@
 		const items = [...appState.mediaItems];
 
 		// Group children by sourceId
-		const childrenMap = _.groupBy(
+		const childrenMap = groupBy(
 			items.filter((i) => i.sourceId),
 			'sourceId'
 		);
@@ -21,8 +21,8 @@
 		const roots = items.filter((i) => !i.sourceId);
 
 		// Build the ordered list
-		return _.flatMap(roots, (root) => {
-			const children = _.sortBy(childrenMap[root.id] ?? [], (i) => i.timestamp ?? 0);
+		return flatMap(roots, (root) => {
+			const children = sortBy(childrenMap[root.id] ?? [], (i) => i.timestamp ?? 0);
 			return [root, ...children];
 		});
 	});
