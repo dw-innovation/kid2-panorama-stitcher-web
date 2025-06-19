@@ -48,11 +48,26 @@ export const createState = () => {
 
 			let mediaType: MediaType;
 
-			if (file.type.startsWith('image')) {
+			const allowedImageTypes = [
+				'image/png',
+				'image/jpeg',
+				'image/jpg',
+				'image/webp'
+			];
+
+			const allowedVideoTypes = [
+				'video/mp4',
+				'video/webm',
+				'video/quicktime',
+				'video/x-msvideo'
+			];
+
+			if (allowedImageTypes.includes(file.type)) {
 				mediaType = 'image';
-			} else if (file.type.startsWith('video')) {
+			} else if (allowedVideoTypes.includes(file.type)) {
 				mediaType = 'video';
 			} else {
+				console.warn(`Unsupported file type: ${file.type} for file: ${file.name}`);
 				return;
 			}
 
