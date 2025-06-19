@@ -34,6 +34,12 @@ export const createState = () => {
 		queueMicrotask(() => (state.canvasItems = prev.canvasItems));
 	};
 
+	const selectMediaItem = (id: string) => {
+		const index = state.mediaItems.findIndex((item) => item.id === id);
+
+		if (index !== -1) state.selectedMediaItem = id;
+	};
+
 	return {
 		get mediaItems() {
 			return state.mediaItems;
@@ -66,7 +72,7 @@ export const createState = () => {
 			const filename = file.name;
 
 			let naturalWidth: number, naturalHeight: number;
-			
+
 			try {
 				const dimensions = await getMediaDimensions(blobURL, mediaType);
 				naturalWidth = dimensions.width;
@@ -98,6 +104,7 @@ export const createState = () => {
 				}
 			} else {
 				state.mediaItems.push(newMediaItem);
+				selectMediaItem(newMediaItem.id);
 			}
 			return { id, blobURL };
 		},
@@ -123,11 +130,7 @@ export const createState = () => {
 				state.mediaItems.splice(index, 1);
 			}
 		},
-		selectMediaItem: (id: string) => {
-			const index = state.mediaItems.findIndex((item) => item.id === id);
-
-			if (index !== -1) state.selectedMediaItem = id;
-		},
+		selectMediaItem,
 		get selectedMediaItem() {
 			return state.mediaItems.find((item) => item.id === state.selectedMediaItem);
 		},
@@ -177,7 +180,7 @@ export const createState = () => {
 			const id = uuid();
 
 			let naturalWidth: number, naturalHeight: number;
-			
+
 			try {
 				const dimensions = await getMediaDimensions(blobURL, 'image');
 				naturalWidth = dimensions.width;
@@ -227,7 +230,7 @@ export const createState = () => {
 		},
 		async setPanorama(blobURL: string) {
 			let naturalWidth: number, naturalHeight: number;
-			
+
 			try {
 				const dimensions = await getMediaDimensions(blobURL, 'image');
 				naturalWidth = dimensions.width;
