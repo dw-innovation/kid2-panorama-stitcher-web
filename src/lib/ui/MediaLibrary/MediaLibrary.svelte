@@ -4,7 +4,9 @@
 	import MediaDropZone from '../MediaDropZone.svelte';
 	import Image from './Image.svelte';
 	import Video from './Video.svelte';
-	import _ from 'lodash';
+	import groupBy from 'lodash/groupBy';
+	import flatMap from 'lodash/flatMap';
+	import sortBy from 'lodash/sortBy';
 
 	let orderedMediaItems = $derived(() => {
 		const items = [...appState.mediaItems];
