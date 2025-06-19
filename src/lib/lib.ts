@@ -1,7 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
 import type { CanvasItem, MediaType } from './types';
-import { appState } from './state.svelte';
 import { PUBLIC_STITCH_API } from '$env/static/public';
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
@@ -10,18 +9,70 @@ export const getMediaDimensions = (
 	blobURL: string,
 	mediaType: MediaType
 ): Promise<{ width: number; height: number }> =>
-	new Promise((resolve) => {
+	new Promise((resolve, reject) => {
+		// Validate inputs
+		if (!blobURL || typeof blobURL !== 'string') {
+			reject(new Error('Invalid blobURL provided'));
+			return;
+		}
+
+		if (!mediaType || (mediaType !== 'image' && mediaType !== 'video')) {
+			reject(new Error(`Unsupported media type: ${mediaType}`));
+			return;
+		}
+
+		// Set timeout to prevent hanging
+		const timeout = setTimeout(() => {
+			reject(new Error(`Timeout loading ${mediaType} dimensions`));
+		}, 10000); // 10 second timeout
+
+		const clearTimeoutAndResolve = (dimensions: { width: number; height: number }) => {
+			clearTimeout(timeout);
+			resolve(dimensions);
+		};
+
+		const clearTimeoutAndReject = (error: string) => {
+			clearTimeout(timeout);
+			reject(new Error(error));
+		};
+
 		if (mediaType === 'image') {
 			const img = new Image();
+
 			img.onload = () => {
-				resolve({ width: img.naturalWidth, height: img.naturalHeight });
+				if (img.naturalWidth === 0 || img.naturalHeight === 0) {
+					clearTimeoutAndReject('Image loaded but has invalid dimensions');
+					return;
+				}
+				clearTimeoutAndResolve({
+					width: img.naturalWidth,
+					height: img.naturalHeight
+				});
 			};
+
+			img.onerror = () => {
+				clearTimeoutAndReject('Failed to load image');
+			};
+
 			img.src = blobURL;
 		} else if (mediaType === 'video') {
 			const video = document.createElement('video');
+
 			video.onloadedmetadata = () => {
-				resolve({ width: video.videoWidth, height: video.videoHeight });
+				if (video.videoWidth === 0 || video.videoHeight === 0) {
+					clearTimeoutAndReject('Video loaded but has invalid dimensions');
+					return;
+				}
+				clearTimeoutAndResolve({
+					width: video.videoWidth,
+					height: video.videoHeight
+				});
 			};
+
+			video.onerror = () => {
+				clearTimeoutAndReject('Failed to load video metadata');
+			};
+
 			video.src = blobURL;
 		}
 	});

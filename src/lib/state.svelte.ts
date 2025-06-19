@@ -65,10 +65,17 @@ export const createState = () => {
 			const blobURL = URL.createObjectURL(file);
 			const filename = file.name;
 
-			const { width: naturalWidth, height: naturalHeight } = await getMediaDimensions(
-				blobURL,
-				mediaType
-			);
+			let naturalWidth: number, naturalHeight: number;
+			
+			try {
+				const dimensions = await getMediaDimensions(blobURL, mediaType);
+				naturalWidth = dimensions.width;
+				naturalHeight = dimensions.height;
+			} catch (error) {
+				console.error(`Failed to get dimensions for ${filename}:`, error);
+				URL.revokeObjectURL(blobURL);
+				return;
+			}
 
 			const newMediaItem = {
 				id,
@@ -169,10 +176,16 @@ export const createState = () => {
 
 			const id = uuid();
 
-			const { width: naturalWidth, height: naturalHeight } = await getMediaDimensions(
-				blobURL,
-				'image'
-			);
+			let naturalWidth: number, naturalHeight: number;
+			
+			try {
+				const dimensions = await getMediaDimensions(blobURL, 'image');
+				naturalWidth = dimensions.width;
+				naturalHeight = dimensions.height;
+			} catch (error) {
+				console.error('Failed to get canvas item dimensions:', error);
+				return;
+			}
 
 			state.canvasItems.push({
 				id,
@@ -213,10 +226,16 @@ export const createState = () => {
 			return state.panorama;
 		},
 		async setPanorama(blobURL: string) {
-			const { width: naturalWidth, height: naturalHeight } = await getMediaDimensions(
-				blobURL,
-				'image'
-			);
+			let naturalWidth: number, naturalHeight: number;
+			
+			try {
+				const dimensions = await getMediaDimensions(blobURL, 'image');
+				naturalWidth = dimensions.width;
+				naturalHeight = dimensions.height;
+			} catch (error) {
+				console.error('Failed to get panorama dimensions:', error);
+				return;
+			}
 
 			state.panorama = {
 				blobURL,
