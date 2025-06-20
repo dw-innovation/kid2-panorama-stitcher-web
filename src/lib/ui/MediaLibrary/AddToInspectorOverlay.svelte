@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { appState } from '$lib/state.svelte';
-	import type { MediaItem } from '$lib/types';
+	import { appState } from '$lib/stores/state.svelte';
+	import type { MediaItem } from '$lib/shared/types';
 	import { SearchIcon, Video } from '@lucide/svelte';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();

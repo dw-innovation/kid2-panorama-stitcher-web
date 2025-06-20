@@ -1,5 +1,5 @@
-import { STEPS } from './const';
-import { appState } from '$lib/state.svelte';
+import { STEPS } from '../shared/const';
+import { appState } from './state.svelte';
 
 export const createStepsStore = () => {
 	const state = $state<{

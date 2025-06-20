@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Dropzone from 'svelte-file-dropzone';
-	import { appState } from '$lib/state.svelte';
 	import type { Snippet } from 'svelte';
+	import { appState } from '../stores/state.svelte';
 
 	let { children, onSelect }: { children: Snippet; onSelect?: () => void } = $props();
 

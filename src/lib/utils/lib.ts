@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
-import type { CanvasItem, MediaType } from './types';
+import type { CanvasItem, MediaType } from '../shared/types';
 import { PUBLIC_STITCH_API } from '$env/static/public';
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
@@ -100,7 +100,7 @@ export const stitchCanvasImages = async (canvasItems: CanvasItem[]): Promise<str
 	}
 
 	try {
-		const response = await fetch(`${PUBLIC_STITCH_API}/stitchPanorama`, {
+		const response = await fetch(`${PUBLIC_STITCH_API}/stitchThumbnail`, {
 			method: 'POST',
 			body: formData
 		});

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { STEPS } from '$lib/const';
-	import { stepsStore } from '$lib/steps.svelte';
 	import Navigation from '$lib/ui/Navigation.svelte';
+	import { STEPS } from '$src/lib/shared/const';
+	import { stepsStore } from '$src/lib/stores/steps.svelte';
 
 	const CurrentComponent = $derived(STEPS[stepsStore.currentStep].component);
 </script>

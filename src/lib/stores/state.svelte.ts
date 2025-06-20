@@ -1,6 +1,6 @@
 import shortUUID from 'short-uuid';
-import type { AppState, MediaType } from './types';
-import { getMediaDimensions } from './lib';
+import type { AppState, MediaType } from '../shared/types';
+import { getMediaDimensions } from '../utils/lib';
 
 export const createState = () => {
 	const { uuid } = shortUUID();

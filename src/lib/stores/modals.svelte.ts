@@ -1,5 +1,5 @@
-import type { ModalType } from './types';
-import Privacy from './ui/Modals/Privacy.svelte';
+import type { ModalType } from '../shared/types';
+import Privacy from '../ui/Modals/Privacy.svelte';
 
 export const createState = () => {
 	const state = $state<ModalType[]>([{ name: 'privacy', component: Privacy }]);

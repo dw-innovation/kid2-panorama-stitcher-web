@@ -1,6 +1,6 @@
-import Upload from './ui/Upload.svelte';
-import FrameSelector from './ui/FrameSelector.svelte';
-import Panorama from './ui/Panorama.svelte';
+import Upload from '$lib/ui/Upload.svelte';
+import FrameSelector from '$lib/ui/FrameSelector.svelte';
+import Panorama from '$lib/ui/Panorama.svelte';
 
 export const STEPS = [
 	{

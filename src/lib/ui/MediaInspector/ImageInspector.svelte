@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { appState } from '$lib/state.svelte';
+	import { appState } from '$lib/stores/state.svelte';
 	import { ImagePlus, FileDown } from '@lucide/svelte';
 	import Magnifier from './Magnifier.svelte';
 	import { onMount } from 'svelte';
-	import { handleDownload } from '$lib/lib';
-	import type { MediaItem } from '$lib/types';
+	import { handleDownload } from '$lib/utils/lib';
+	import type { MediaItem } from '$lib/shared/types';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();
 

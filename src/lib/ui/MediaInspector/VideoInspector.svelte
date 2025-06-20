@@ -1,17 +1,20 @@
 <script lang="ts">
-	import { handleDownload } from '$lib/lib';
+	import { handleDownload } from '$lib/utils/lib';
 
-	import { appState } from '$lib/state.svelte';
+	import { appState } from '$lib/stores/state.svelte';
 	import { FileDown, ImagePlus } from '@lucide/svelte';
 	import VideoPlayer from './VideoPlayer.svelte';
-	import type { MediaItem } from '$lib/types';
+	import type { MediaItem } from '$lib/shared/types';
 	import { onMount } from 'svelte';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();
 
 	let videoElement: HTMLVideoElement | undefined = $state();
 
-	const handleCaptureFrame = async (videoElement: HTMLVideoElement | undefined, mediaItem: MediaItem) => {
+	const handleCaptureFrame = async (
+		videoElement: HTMLVideoElement | undefined,
+		mediaItem: MediaItem
+	) => {
 		if (!videoElement || !mediaItem) return;
 
 		const selectedItem = mediaItem;
@@ -63,7 +66,10 @@
 
 <div class="relative flex h-full flex-col">
 	<div class="flex gap-2">
-		<button onclick={() => handleCaptureFrame(videoElement, mediaItem)} disabled={!mediaItem || !videoElement}>
+		<button
+			onclick={() => handleCaptureFrame(videoElement, mediaItem)}
+			disabled={!mediaItem || !videoElement}
+		>
 			<ImagePlus size={12} />
 			capture frame <kbd>c</kbd>
 		</button>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { appState } from '$lib/state.svelte';
+	import { appState } from '$lib/stores/state.svelte';
 	import { PlusCircle } from '@lucide/svelte';
 	import MediaDropZone from '../MediaDropZone.svelte';
 	import Image from './Image.svelte';

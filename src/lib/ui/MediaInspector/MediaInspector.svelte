@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { appState } from '$lib/state.svelte';
 	import ImageInspector from './ImageInspector.svelte';
 	import VideoInspector from './VideoInspector.svelte';
-	import Hand from '../../../assets/hand.png?enhanced';
+	import Hand from '$assets/hand.png?enhanced';
 	import Container from './Container.svelte';
+	import { appState } from '$src/lib/stores/state.svelte';
 </script>
 
 {#if appState.selectedMediaItem?.mediaType === 'image'}

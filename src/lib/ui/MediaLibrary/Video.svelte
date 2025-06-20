@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { MediaItem } from '$lib/types';
+	import type { MediaItem } from '$lib/shared/types';
 	import { FileDown, Trash } from '@lucide/svelte';
 	import VideoElement from './VideoElement.svelte';
 	import AddToInspectorOverlay from './AddToInspectorOverlay.svelte';
-	import { appState } from '$lib/state.svelte';
-	import { handleDownload } from '$lib/lib';
+	import { appState } from '$lib/stores/state.svelte';
+	import { handleDownload } from '$lib/utils/lib';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();
 

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { handleDownload, stitchCanvasImages } from '$lib/lib';
-	import { appState } from '$lib/state.svelte';
-	import { stepsStore } from '$lib/steps.svelte';
+	import { handleDownload, stitchCanvasImages } from '$lib/utils/lib';
+	import { appState } from '$lib/stores/state.svelte';
+	import { stepsStore } from '$lib/stores/steps.svelte';
 	import { ArrowLeft, Download } from '@lucide/svelte';
 	import { createQuery } from '@tanstack/svelte-query';
 

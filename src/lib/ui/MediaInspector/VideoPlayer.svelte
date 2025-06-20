@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { MediaItem } from '$lib/types';
+	import type { MediaItem } from '$lib/shared/types';
 	import {
 		ChevronFirst,
 		ChevronLast,
@@ -11,7 +11,7 @@
 	} from '@lucide/svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import { VolumeX, Volume2 } from '@lucide/svelte';
-	import { appState } from '$lib/state.svelte';
+	import { appState } from '$lib/stores/state.svelte';
 
 	let {
 		mediaItem,
@@ -213,10 +213,12 @@
 			bind:this={videoElement}
 			ontimeupdate={onTimeUpdate}
 			onloadedmetadata={onLoadedMetadata}
+			playsinline
+			preload="metadata"
 			class="max-h-full max-w-full object-contain"
 		>
 			<track kind="captions" />
-			<source src={mediaItem.blobURL} />
+			<source src={mediaItem.blobURL} type="video/mp4" />
 			Your browser does not support the video tag.
 		</video>
 	</div>

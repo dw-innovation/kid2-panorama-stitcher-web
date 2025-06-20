@@ -1,8 +1,8 @@
 <script lang="ts">
 	import MediaDropZone from './MediaDropZone.svelte';
-	import { stepsStore } from '$lib/steps.svelte';
-	import Hand from '../../assets/hand.png?enhanced';
-	import Illustration from '../../assets/illustration.png?enhanced';
+	import { stepsStore } from '$lib/stores/steps.svelte';
+	import Hand from '$assets/hand.png?enhanced';
+	import Illustration from '$assets/illustration.png?enhanced';
 </script>
 
 <div class="flex h-full flex-col items-center justify-center gap-4 bg-[#3188db] p-4">

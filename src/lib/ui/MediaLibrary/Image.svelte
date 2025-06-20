@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { MediaItem } from '$lib/types';
+	import type { MediaItem } from '$lib/shared/types';
 	import { Blocks, Trash } from '@lucide/svelte';
 	import ImageElement from './ImageElement.svelte';
 	import AddToInspectorOverlay from './AddToInspectorOverlay.svelte';
-	import { appState } from '$lib/state.svelte';
+	import { appState } from '$lib/stores/state.svelte';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();
 

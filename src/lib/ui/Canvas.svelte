@@ -8,10 +8,10 @@
 		type ModifiedEvent,
 		type TPointerEvent
 	} from 'fabric';
-	import { appState } from '$lib/state.svelte';
-	import type { CanvasObject } from '$lib/types';
+	import { appState } from '$lib/stores/state.svelte';
+	import type { CanvasObject } from '$lib/shared/types';
 	import { Aperture, Download } from '@lucide/svelte';
-	import { stepsStore } from '../steps.svelte';
+	import { stepsStore } from '$lib/stores/steps.svelte';
 	import Modal from './Modal.svelte';
 	import JSZip from 'jszip';
 

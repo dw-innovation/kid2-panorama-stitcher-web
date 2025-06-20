@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { STEPS } from '$lib/const';
-	import { cn } from '$lib/lib';
-	import { appState } from '$lib/state.svelte';
-	import { stepsStore } from '$lib/steps.svelte';
+	import { STEPS } from '$lib/shared/const';
+	import { appState } from '$lib/stores/state.svelte';
+	import { stepsStore } from '$lib/stores/steps.svelte';
+	import { cn } from '$lib/utils/lib';
 
 	let sufficientItems = $derived(appState.canvasItems.length < 2);
 </script>
