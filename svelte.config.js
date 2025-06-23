@@ -6,10 +6,10 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: {
-			"$assets": "src/assets",
-			"$src": "src",
+			$assets: 'src/assets',
+			$src: 'src'
 		}
-	},
+	}
 };
 
 export default config;
