@@ -53,7 +53,3 @@ export type AppState = {
 	historyStack: Omit<AppState, 'historyStack'>[];
 };
 
-export type ModalType = {
-	name: string;
-	component: Component;
-};

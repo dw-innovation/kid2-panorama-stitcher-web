@@ -1,14 +1,24 @@
-import type { ModalType } from '../shared/types';
-import Privacy from '../ui/Modals/Privacy.svelte';
+type ModalInstance = {
+	name: string;
+	toggle: (open?: boolean) => void;
+};
 
-export const createState = () => {
-	const state = $state<ModalType[]>([{ name: 'privacy', component: Privacy }]);
+export const createModalState = () => {
+	const modals = $state<Map<string, ModalInstance>>(new Map());
 
 	return {
-		getModal(name: string): ModalType | undefined {
-			return state.find((m) => m.name === name);
+		register: (name: string, instance: ModalInstance) => {
+			modals.set(name, instance);
+		},
+		unregister: (name: string) => {
+			modals.delete(name);
+		},
+		get: (name: string) => modals.get(name),
+		toggle: (name: string, open?: boolean) => {
+			const modal = modals.get(name);
+			modal?.toggle(open);
 		}
 	};
 };
 
-export const modalsState = createState();
+export const modalState = createModalState();

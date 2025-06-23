@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { appState } from '$lib/stores/state.svelte';
+	import { modalState } from '$lib/stores/modals.svelte';
+	import ModalHost from '$lib/ui/ModalHost.svelte';
 	import '../app.css';
 	import '@fontsource/inter/400.css';
 	import '@fontsource/inter/600.css';
@@ -32,4 +34,5 @@
 
 <QueryClientProvider client={queryClient}>
 	{@render children()}
+	<ModalHost />
 </QueryClientProvider>
