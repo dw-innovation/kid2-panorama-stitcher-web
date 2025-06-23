@@ -47,7 +47,7 @@
 		</div>
 	{:else if $query.isSuccess && appState.panorama}
 		<div class="flex h-full flex-col items-center gap-2">
-			<div class="flex gap-2">
+			<div class="flex gap-2 flex-shrink-0">
 				<button onclick={() => stepsStore.setStep(1)} class="inline-block w-fit">
 					<ArrowLeft size={15} /> Go back to frame selector
 				</button>
@@ -59,13 +59,13 @@
 					<Download size={15} /> Panorama
 				</button>
 			</div>
-			<img
-				class="flex-1"
-				src={appState.panorama.blobURL}
-				style:width="inherit"
-				style:height="inherit"
-				alt="stitched panorama"
-			/>
+			<div class="flex-1 flex items-center justify-center w-full overflow-hidden">
+				<img
+					class="max-h-full max-w-full object-contain"
+					src={appState.panorama.blobURL}
+					alt="stitched panorama"
+				/>
+			</div>
 		</div>
 	{/if}
 
