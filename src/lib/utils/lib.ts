@@ -100,7 +100,7 @@ export const stitchCanvasImages = async (canvasItems: CanvasItem[]): Promise<str
 	}
 
 	try {
-		const response = await fetch(`${PUBLIC_STITCH_API}/stitchThumbnail`, {
+		const response = await fetch(`${PUBLIC_STITCH_API}/stitch`, {
 			method: 'POST',
 			body: formData
 		});
