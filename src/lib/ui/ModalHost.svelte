@@ -5,7 +5,7 @@
 	import Tracking from './Modals/Tracking.svelte';
 
 	const modalRegistry: Array<{ name: string; component: Component }> = [
-		{ name: 'privacy', component: Processing },
+		{ name: 'processing', component: Processing },
 		{ name: 'tracking', component: Tracking }
 	];
 
