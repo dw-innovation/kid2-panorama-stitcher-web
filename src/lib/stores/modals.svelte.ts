@@ -1,6 +1,7 @@
 type ModalInstance = {
 	name: string;
 	toggle: (open?: boolean) => void;
+	awaitResult?: () => Promise<any>;
 };
 
 export const createModalState = () => {
@@ -17,6 +18,10 @@ export const createModalState = () => {
 		toggle: (name: string, open?: boolean) => {
 			const modal = modals.get(name);
 			modal?.toggle(open);
+		},
+		awaitResult: async (name: string) => {
+			const modal = modals.get(name);
+			return modal?.awaitResult?.();
 		}
 	};
 };

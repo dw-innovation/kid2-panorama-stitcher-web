@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { appState } from '$lib/stores/state.svelte';
-	import { modalState } from '$lib/stores/modals.svelte';
 	import ModalHost from '$lib/ui/ModalHost.svelte';
 	import '../app.css';
 	import '@fontsource/inter/400.css';

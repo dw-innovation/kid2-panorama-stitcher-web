@@ -15,7 +15,8 @@
 			if (instance) {
 				modalState.register(name, {
 					name,
-					toggle: (open?: boolean) => instance.toggle(open)
+					toggle: (open?: boolean) => instance.toggle(open),
+					awaitResult: () => instance.awaitResult?.()
 				});
 			}
 		});
