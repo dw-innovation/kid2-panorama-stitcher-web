@@ -1,5 +1,4 @@
 import { STEPS } from '../shared/const';
-import { consentState } from './consents.svelte';
 import { modalState } from './modals.svelte';
 import { appState } from './state.svelte';
 
@@ -25,8 +24,8 @@ export const createStepsStore = () => {
 
 			if (index === STEPS.length - 1 && appState.canvasItems.length === 0) return;
 
-			if (index === 2 && !consentState.get('processing')) {
-				const result = await modalState.awaitResult('privacy');
+			if (index === 2 && !appState.getConsent('processing')) {
+				const result = await modalState.awaitResult('processing');
 				if (!result) return;
 			}
 			state.currentStep = index;

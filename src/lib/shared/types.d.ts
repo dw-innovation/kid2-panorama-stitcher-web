@@ -1,5 +1,4 @@
 import type { FabricObject } from 'fabric';
-import type { Component } from 'svelte';
 
 export type MediaType = 'video' | 'image';
 
@@ -46,10 +45,8 @@ export type AppState = {
 	mediaItems: MediaItem[];
 	canvasItems: CanvasItem[];
 	panorama: Panorama | undefined;
-	consents: {
-		processing: boolean;
-		tracking: boolean;
-	};
+	consents: Record<ConsentTypes, boolean>;
 	historyStack: Omit<AppState, 'historyStack'>[];
 };
 
+type ConsentTypes = 'processing' | 'tracking';

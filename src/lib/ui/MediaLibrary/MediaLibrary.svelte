@@ -43,7 +43,9 @@
 	</div>
 
 	<MediaDropZone>
-		<PlusCircle />
-		<span class="select-none">add media item</span>
+		<div class="flex min-w-24 flex-col items-center gap-2">
+			<PlusCircle />
+			<span class="text-center select-none">add media item</span>
+		</div>
 	</MediaDropZone>
 </div>

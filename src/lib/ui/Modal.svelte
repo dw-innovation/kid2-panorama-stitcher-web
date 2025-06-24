@@ -3,13 +3,16 @@
 	import { onMount } from 'svelte';
 	import type { Snippet } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import { cn } from '../utils/lib';
 
 	let {
 		children,
-		onToggle
+		onToggle,
+		compact
 	}: {
 		children: Snippet;
 		onToggle?: (isOpen: boolean) => void;
+		compact?: boolean;
 	} = $props();
 
 	let isOpen = $state(false);
@@ -58,7 +61,10 @@
 		out:fly={{ y: 50, duration: 300 }}
 	>
 		<div
-			class="relative z-50 m-4 h-full overflow-hidden rounded-sm bg-white p-2 shadow-lg"
+			class={cn(
+				'relative z-50 m-4 overflow-hidden rounded-sm bg-white p-2 shadow-lg',
+				compact ? 'h-fit' : ' h-full'
+			)}
 			bind:this={modalRef}
 			style:max-height="calc(100% - 5rem)"
 		>

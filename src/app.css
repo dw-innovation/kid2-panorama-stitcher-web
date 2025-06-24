@@ -46,7 +46,7 @@ main {
 }
 
 button {
-	@apply flex cursor-pointer items-center gap-2 rounded-md border border-gray-300 bg-white px-2 py-1 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-100/20 hover:shadow disabled:cursor-default disabled:bg-slate-200;
+	@apply flex cursor-pointer items-center justify-center gap-2 rounded-md border border-gray-300 px-2 py-1 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-100/20 hover:shadow disabled:cursor-default disabled:bg-slate-200;
 }
 
 .pane-label {
@@ -55,6 +55,9 @@ button {
 
 .button--ghost {
 	@apply m-0 flex cursor-pointer border-0 bg-transparent p-0 shadow-none outline-0;
+}
+.button--primary {
+	@apply bg-blue-300;
 }
 
 .mediaLibrary-button {

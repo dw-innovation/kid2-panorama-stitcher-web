@@ -1,7 +1,7 @@
 type ModalInstance = {
 	name: string;
 	toggle: (open?: boolean) => void;
-	awaitResult?: () => Promise<any>;
+	awaitResult?: () => Promise<boolean>;
 };
 
 export const createModalState = () => {

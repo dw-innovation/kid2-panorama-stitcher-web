@@ -10,7 +10,7 @@
 	} from 'fabric';
 	import { appState } from '$lib/stores/state.svelte';
 	import type { CanvasObject } from '$lib/shared/types';
-	import { Aperture, Download } from '@lucide/svelte';
+	import { Aperture, Download, XIcon } from '@lucide/svelte';
 	import { stepsStore } from '$lib/stores/steps.svelte';
 	import Modal from './Modal.svelte';
 	import JSZip from 'jszip';
@@ -228,10 +228,14 @@
 <div class="canvas relative flex flex-col gap-2">
 	<span class="pane-label">canvas</span>
 	<div class="flex gap-2">
-		<button onclick={() => stepsStore.setStep(2)} disabled={appState.canvasItems.length < 2}>
+		<button
+			onclick={() => stepsStore.setStep(2)}
+			disabled={appState.canvasItems.length < 2}
+			class="button--primary"
+		>
 			<Aperture size={12} />create panorama
 		</button>
-		<button onclick={appState.clearCanvasItems}>clear selection</button>
+		<button onclick={appState.clearCanvasItems}><XIcon size={12} /> clear canvas</button>
 		<button onclick={downloadAllImages}>
 			<Download size={12} /> images
 		</button>

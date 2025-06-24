@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { consentState } from '$lib/stores/consents.svelte';
+	import { Check, XIcon } from '@lucide/svelte';
 	import Modal from '../Modal.svelte';
+	import { appState } from '$src/lib/stores/state.svelte';
 
 	let modal: Modal;
 	let resolvePromise: ((value: boolean) => void) | null = null;
 
 	export const toggle = (open?: boolean) => modal?.toggle(open);
-	
+
 	export const awaitResult = (): Promise<boolean> => {
 		return new Promise((resolve) => {
 			resolvePromise = resolve;
@@ -15,7 +16,7 @@
 	};
 
 	const handleAccept = () => {
-		consentState.toggle('processing', true);
+		appState.toggle('processing', true);
 		modal.toggle(false);
 		resolvePromise?.(true);
 		resolvePromise = null;
@@ -28,9 +29,15 @@
 	};
 </script>
 
-<Modal bind:this={modal}>
+<Modal bind:this={modal} compact>
 	<p>Do you agree to have your images processed on our servers for stitching?</p>
 
-	<button onclick={handleAccept}>accept</button>
-	<button onclick={handleReject}>reject</button>
+	<div class="mt-4 flex gap-2">
+		<button onclick={handleAccept} class="flex-1 bg-green-100">
+			<Check /> accept
+		</button>
+		<button onclick={handleReject} class="flex-1 bg-red-100">
+			<XIcon /> reject
+		</button>
+	</div>
 </Modal>

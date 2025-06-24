@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { appState } from '$lib/stores/state.svelte';
-	import { ImagePlus, FileDown } from '@lucide/svelte';
+	import { ImagePlus, Download } from '@lucide/svelte';
 	import Magnifier from './Magnifier.svelte';
 	import { onMount } from 'svelte';
 	import { handleDownload } from '$lib/utils/lib';
@@ -34,12 +34,13 @@
 		<button
 			onclick={handleAddToCanvas}
 			disabled={!mediaItem || appState.canvasItems.some((item) => item.sourceId === mediaItem?.id)}
+			class="button--primary"
 		>
 			<ImagePlus size={12} />
 			add to canvas <kbd>a</kbd>
 		</button>
 		<button onclick={() => mediaItem?.id && handleDownload(mediaItem.blobURL, mediaItem?.id)}>
-			<FileDown size={12} />
+			<Download size={12} />
 			download
 		</button>
 	</div>

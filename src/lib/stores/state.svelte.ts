@@ -2,6 +2,8 @@ import shortUUID from 'short-uuid';
 import type { AppState, MediaType } from '../shared/types';
 import { getMediaDimensions } from '../utils/lib';
 
+type ConsentTypes = 'processing' | 'tracking';
+
 export const createState = () => {
 	const { uuid } = shortUUID();
 
@@ -249,6 +251,10 @@ export const createState = () => {
 		get consents() {
 			return state.consents;
 		},
+		toggle: (name: ConsentTypes, newState?: boolean) => {
+			state.consents[name] = newState ? newState : !state.consents[name];
+		},
+		getConsent: (name: ConsentTypes) => state.consents[name],
 		toggleConsent: (type: keyof typeof state.consents, newState?: boolean) => {
 			state.consents[type] = newState !== undefined ? newState : !state.consents[type];
 		},

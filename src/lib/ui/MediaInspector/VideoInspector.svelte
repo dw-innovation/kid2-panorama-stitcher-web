@@ -2,7 +2,7 @@
 	import { handleDownload } from '$lib/utils/lib';
 
 	import { appState } from '$lib/stores/state.svelte';
-	import { FileDown, ImagePlus } from '@lucide/svelte';
+	import { Download, ImagePlus } from '@lucide/svelte';
 	import VideoPlayer from './VideoPlayer.svelte';
 	import type { MediaItem } from '$lib/shared/types';
 	import { onMount } from 'svelte';
@@ -74,7 +74,7 @@
 			capture frame <kbd>c</kbd>
 		</button>
 		<button onclick={() => mediaItem?.id && handleDownload(mediaItem.blobURL, mediaItem?.id)}>
-			<FileDown size={12} />
+			<Download size={12} />
 			download
 		</button>
 	</div>

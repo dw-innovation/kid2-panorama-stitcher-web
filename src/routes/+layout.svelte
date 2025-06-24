@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { appState } from '$lib/stores/state.svelte';
 	import ModalHost from '$lib/ui/ModalHost.svelte';
+	import { modalState } from '$src/lib/stores/modals.svelte';
 	import '../app.css';
 	import '@fontsource/inter/400.css';
 	import '@fontsource/inter/600.css';
@@ -20,6 +21,7 @@
 
 	onMount(() => {
 		window.addEventListener('keydown', handleGlobalUndo);
+		modalState.toggle('tracking');
 
 		return () => {
 			window.removeEventListener('keydown', handleGlobalUndo);
