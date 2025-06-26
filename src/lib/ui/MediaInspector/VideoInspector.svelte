@@ -42,6 +42,7 @@
 
 			if (newItem) {
 				appState.addToCanvas(newItem.id, newItem.blobURL);
+				appState.trackAction('Media', 'capture_frame', 'video_frame_capture');
 			}
 		}, 'image/png');
 	};

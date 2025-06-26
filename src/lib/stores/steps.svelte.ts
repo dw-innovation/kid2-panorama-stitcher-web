@@ -14,10 +14,16 @@ export const createStepsStore = () => {
 			return state.currentStep;
 		},
 		nextStep: () => {
-			if (state.currentStep + 1 < STEPS.length) state.currentStep++;
+			if (state.currentStep + 1 < STEPS.length) {
+				state.currentStep++;
+				appState.trackAction('Navigation', 'step_navigation', 'next_step');
+			}
 		},
 		prevStep: () => {
-			if (state.currentStep !== 0) state.currentStep--;
+			if (state.currentStep !== 0) {
+				state.currentStep--;
+				appState.trackAction('Navigation', 'step_navigation', 'prev_step');
+			}
 		},
 		setStep: async (index: number) => {
 			if (index < 0 || index >= STEPS.length) return;
@@ -29,6 +35,7 @@ export const createStepsStore = () => {
 				if (!result) return;
 			}
 			state.currentStep = index;
+			appState.trackAction('Navigation', 'step_change', `step_${index}_${STEPS[index]?.label || 'unknown'}`);
 		}
 	};
 };

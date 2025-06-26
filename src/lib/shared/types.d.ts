@@ -49,4 +49,15 @@ export type AppState = {
 	historyStack: Omit<AppState, 'historyStack'>[];
 };
 
-type ConsentTypes = 'processing' | 'tracking';
+export type ConsentTypes = 'processing' | 'tracking';
+
+export type MatomoParams = {
+	idsite: string | undefined;
+	rec: number;
+	rand: number;
+	res: string;
+	ua: string;
+	e_c: string;
+	e_a?: string;
+	e_n?: string;
+};

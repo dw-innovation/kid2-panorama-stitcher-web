@@ -49,6 +49,7 @@
 		"@fontsource/inter": "5.2.5",
 		"@lucide/svelte": "0.510.0",
 		"@tanstack/svelte-query": "5.80.6",
+		"axios": "1.10.0",
 		"clsx": "2.1.1",
 		"fabric": "6.6.5",
 		"lodash": "4.17.21",

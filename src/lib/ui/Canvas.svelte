@@ -60,6 +60,8 @@
 		link.href = dataURL;
 		link.download = 'canvas.png';
 		link.click();
+		
+		appState.trackAction('Download', 'download_canvas', 'canvas_png_download');
 	};
 
 	const downloadAllImages = async () => {
@@ -83,6 +85,8 @@
 		link.href = URL.createObjectURL(zipBlob);
 		link.download = 'images.zip';
 		link.click();
+		
+		appState.trackAction('Download', 'download_images_zip', 'images_zip_download');
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
@@ -95,6 +99,7 @@
 
 			if (idsToRemove.length > 0) {
 				appState.removeFromCanvasItems(idsToRemove);
+				appState.trackAction('Canvas', 'delete_objects', 'keyboard_delete');
 
 				fabricCanvas.discardActiveObject();
 				fabricCanvas.requestRenderAll();

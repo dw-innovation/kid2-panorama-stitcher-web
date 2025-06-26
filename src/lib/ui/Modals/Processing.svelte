@@ -17,12 +17,14 @@
 
 	const handleAccept = () => {
 		appState.toggle('processing', true);
+		appState.trackAction('Consent', 'processing_consent', 'accept');
 		modal.toggle(false);
 		resolvePromise?.(true);
 		resolvePromise = null;
 	};
 
 	const handleReject = () => {
+		appState.trackAction('Consent', 'processing_consent', 'reject');
 		modal.toggle(false);
 		resolvePromise?.(false);
 		resolvePromise = null;

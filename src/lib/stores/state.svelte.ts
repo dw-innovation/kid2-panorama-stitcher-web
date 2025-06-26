@@ -1,5 +1,7 @@
 import shortUUID from 'short-uuid';
-import type { AppState, MediaType } from '../shared/types';
+import axios from 'axios';
+import { env } from '$env/dynamic/public';
+import type { AppState, MatomoParams, MediaType } from '../shared/types';
 import { getMediaDimensions } from '../utils/lib';
 
 type ConsentTypes = 'processing' | 'tracking';
@@ -18,6 +20,33 @@ export const createState = () => {
 		},
 		historyStack: []
 	});
+
+	const trackAction = async (category: string, action?: string, name?: string) => {
+		if (!state.consents.tracking || !env.PUBLIC_MATOMO_URL || !env.PUBLIC_MATOMO_SITE_ID) return;
+		
+		try {
+			const params: MatomoParams = {
+				idsite: env.PUBLIC_MATOMO_SITE_ID,
+				rec: 1,
+				rand: Math.floor(Math.random() * 10000000),
+				res: `${window?.screen?.availWidth}x${window?.screen?.availHeight}`,
+				ua: window?.navigator?.userAgent,
+				e_c: category
+			};
+
+			if (action) params.e_a = action;
+			if (name) params.e_n = name;
+
+			await axios({
+				method: 'get',
+				url: `${env.PUBLIC_MATOMO_URL}/matomo.php`,
+				params,
+				timeout: 5000
+			});
+		} catch (error) {
+			console.warn('Failed to track action:', error);
+		}
+	};
 
 	const pushToHistory = () => {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -108,6 +137,8 @@ export const createState = () => {
 				state.mediaItems.push(newMediaItem);
 				selectMediaItem(newMediaItem.id);
 			}
+			
+			trackAction('Media', 'add_media_item', `file_type_${mediaType}`);
 			return { id, blobURL };
 		},
 		updatePlaybackTime: (id: string, time: number) => {
@@ -130,6 +161,7 @@ export const createState = () => {
 			const index = state.mediaItems.findIndex((item) => item.id === id);
 			if (index !== -1) {
 				state.mediaItems.splice(index, 1);
+				trackAction('Media', 'remove_media_item', 'media_library_remove');
 			}
 		},
 		selectMediaItem,
@@ -205,6 +237,8 @@ export const createState = () => {
 				scaleX: undefined,
 				scaleY: undefined
 			});
+			
+			trackAction('Canvas', 'add_to_canvas', 'media_item_added');
 		},
 		removeFromCanvasItems(ids: string[]) {
 			pushToHistory();
@@ -220,6 +254,7 @@ export const createState = () => {
 			pushToHistory();
 
 			state.canvasItems = [];
+			trackAction('Canvas', 'clear_canvas', 'canvas_cleared');
 		},
 		setCropBox(id: string, cropBox: [number, number, number, number]) {
 			pushToHistory();
@@ -258,7 +293,8 @@ export const createState = () => {
 		toggleConsent: (type: keyof typeof state.consents, newState?: boolean) => {
 			state.consents[type] = newState !== undefined ? newState : !state.consents[type];
 		},
-		pushToHistory,
+		trackAction,
+		pushToHistory,  
 		undo
 	};
 };

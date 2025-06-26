@@ -9,7 +9,17 @@
 
 	const query = createQuery({
 		queryKey: ['stitchedImage', appState.canvasItems.map((item) => item.id)],
-		queryFn: () => stitchCanvasImages(appState.canvasItems),
+		queryFn: async () => {
+			appState.trackAction('Processing', 'create_panorama', 'stitch_initiate');
+			try {
+				const result = await stitchCanvasImages(appState.canvasItems);
+				appState.trackAction('Processing', 'stitch_result', 'success');
+				return result;
+			} catch (error) {
+				appState.trackAction('Processing', 'stitch_result', 'failure');
+				throw error;
+			}
+		},
 		enabled: appState.canvasItems.length > 1,
 		retry: false
 	});
@@ -52,8 +62,12 @@
 					<ArrowLeft size={15} /> Go back to frame selector
 				</button>
 				<button
-					onclick={() =>
-						appState.panorama?.blobURL && handleDownload(appState.panorama?.blobURL, 'panorama')}
+					onclick={() => {
+						if (appState.panorama?.blobURL) {
+							handleDownload(appState.panorama.blobURL, 'panorama');
+							appState.trackAction('Download', 'download_panorama', 'final_panorama_download');
+						}
+					}}
 					class="inline-block w-fit"
 				>
 					<Download size={15} /> Panorama

@@ -35,15 +35,18 @@
 		if (videoElement.paused) {
 			videoElement.play();
 			isPlaying = true;
+			appState.trackAction('Video', 'playback_control', 'play');
 		} else {
 			videoElement.pause();
 			isPlaying = false;
+			appState.trackAction('Video', 'playback_control', 'pause');
 		}
 	};
 
 	const rewind = () => {
 		if (!videoElement) return;
 		videoElement.currentTime = Math.max(0, videoElement.currentTime - 5);
+		appState.trackAction('Video', 'playback_control', 'rewind');
 	};
 
 	const forward = () => {
