@@ -10,17 +10,18 @@
 	const handleRemove = () => {
 		appState.removeMediaItem(mediaItem.id);
 	};
+	let imageWidth = $state(20);
 </script>
 
-<div class:pt-6={mediaItem.sourceId} class="relative">
+<div class:pt-6={mediaItem.sourceId} class="relative flex-shrink-0" style:width={`${imageWidth}px`}>
 	{#if mediaItem.sourceId}
 		<div
 			class="absolute top-4 -left-2 h-2 -translate-x-1/2 border-t-2 border-r-2 border-[#5b5b5b]"
 			style:width="calc(100% + 1rem)"
 		></div>
 	{/if}
-	<div class="group relative z-20 h-full flex-none" style:width="max-content">
-		<ImageElement blobURL={mediaItem.blobURL} id={mediaItem.id} />
+	<div class="group relative z-20 h-full flex-shrink-0">
+		<ImageElement blobURL={mediaItem.blobURL} id={mediaItem.id} bind:imageWidth />
 
 		<AddToInspectorOverlay {mediaItem} />
 

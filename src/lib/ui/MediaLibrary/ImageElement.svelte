@@ -1,14 +1,16 @@
 <script lang="ts">
-	let { blobURL, id }: { blobURL: string; id: string } = $props();
-	let naturalWidth = $state(0);
-	let naturalHeight = $state(0);
+	let {
+		blobURL,
+		id,
+		imageWidth = $bindable()
+	}: { blobURL: string; id: string; imageWidth: number } = $props();
+
+	let imageEl = $state<HTMLImageElement>();
+	$effect(() => {
+		if (!imageEl) return;
+		const aspectRatio = imageEl?.naturalWidth / imageEl?.naturalHeight;
+		imageWidth = imageEl?.clientHeight * aspectRatio;
+	});
 </script>
 
-<img
-	bind:naturalWidth
-	bind:naturalHeight
-	src={blobURL}
-	alt={id}
-	class="object-fit h-full max-h-full w-auto"
-	style:aspect-ratio="{naturalWidth} / {naturalHeight}"
-/>
+<img src={blobURL} alt={id} class="h-full w-auto" bind:this={imageEl} />
