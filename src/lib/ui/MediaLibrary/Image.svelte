@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { MediaItem } from '$lib/shared/types';
-	import { Blocks, Trash } from '@lucide/svelte';
+	import { Blocks, Image, Search, Trash } from '@lucide/svelte';
 	import ImageElement from './ImageElement.svelte';
 	import AddToInspectorOverlay from './AddToInspectorOverlay.svelte';
 	import { appState } from '$lib/stores/state.svelte';
@@ -25,12 +25,17 @@
 			style:width="calc(100% + 1rem)"
 		></div>
 	{/if}
+
 	<div
 		class="group relative z-20 h-full w-fit {cn(
 			appState.selectedMediaItem?.id === mediaItem.id &&
 				'outline-2 -outline-offset-2 outline-blue-500'
 		)}"
 	>
+		<div class="absolute bottom-2 left-2 z-50 rounded-md bg-white/60 p-[2px]">
+			<Image size={20} />
+		</div>
+
 		<ImageElement blobURL={mediaItem.blobURL} id={mediaItem.id} />
 
 		<AddToInspectorOverlay {mediaItem} />

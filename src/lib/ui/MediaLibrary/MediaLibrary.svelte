@@ -31,7 +31,7 @@
 
 <div class="mediaLibrary flex gap-2">
 	<span class="pane-label">media library</span>
-	<div class="flex flex-nowrap gap-2 overflow-x-auto">
+	<div class="relative flex flex-nowrap gap-2 overflow-x-auto">
 		{#each orderedMediaItems() as mediaItem}
 			{#if mediaItem.mediaType === 'image'}
 				<Image {mediaItem} />
