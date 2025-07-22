@@ -4,7 +4,7 @@
 	import VideoElement from './VideoElement.svelte';
 	import AddToInspectorOverlay from './AddToInspectorOverlay.svelte';
 	import { appState } from '$lib/stores/state.svelte';
-	import { handleDownload } from '$lib/utils/lib';
+	import { cn, handleDownload } from '$lib/utils/lib';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();
 
@@ -13,8 +13,15 @@
 	};
 </script>
 
-<div class="group relative z-30 h-full flex-none">
+<div
+	class="group relative z-30 h-full flex-none {cn(
+		appState.selectedMediaItem?.id === mediaItem.id &&
+			'outline-2 -outline-offset-2 outline-blue-500',
+		mediaItem.sourceId && 'pt-6'
+	)}"
+>
 	<VideoElement blobURL={mediaItem.blobURL} id={mediaItem.id} />
+
 	<AddToInspectorOverlay {mediaItem} />
 
 	<div
@@ -26,6 +33,7 @@
 		>
 			<FileDown size={15} />
 		</button>
+
 		{#if !appState.mediaItems.some((item) => item.sourceId === mediaItem.id)}
 			<button
 				onclick={handleRemove}

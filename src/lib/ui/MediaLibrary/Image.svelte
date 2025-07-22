@@ -4,6 +4,7 @@
 	import ImageElement from './ImageElement.svelte';
 	import AddToInspectorOverlay from './AddToInspectorOverlay.svelte';
 	import { appState } from '$lib/stores/state.svelte';
+	import { cn } from '$src/lib/utils/lib';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();
 
@@ -19,7 +20,12 @@
 			style:width="calc(100% + 1rem)"
 		></div>
 	{/if}
-	<div class="group relative z-20 h-full w-fit">
+	<div
+		class="group relative z-20 h-full w-fit {cn(
+			appState.selectedMediaItem?.id === mediaItem.id &&
+				'outline-2 -outline-offset-2 outline-blue-500'
+		)}"
+	>
 		<ImageElement blobURL={mediaItem.blobURL} id={mediaItem.id} />
 
 		<AddToInspectorOverlay {mediaItem} />

@@ -7,6 +7,7 @@
 	import groupBy from 'lodash/groupBy';
 	import flatMap from 'lodash/flatMap';
 	import sortBy from 'lodash/sortBy';
+	import { cn } from '$src/lib/utils/lib';
 
 	let orderedMediaItems = $derived(() => {
 		const items = [...appState.mediaItems];
