@@ -5,11 +5,16 @@
 	import AddToInspectorOverlay from './AddToInspectorOverlay.svelte';
 	import { appState } from '$lib/stores/state.svelte';
 	import { cn } from '$src/lib/utils/lib';
+	import { modalState } from '$src/lib/stores/modals.svelte';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();
 
-	const handleRemove = () => {
-		appState.removeMediaItem(mediaItem.id);
+	const handleRemove = async () => {
+		const confirmed = await modalState.awaitResult('delete');
+
+		if (confirmed) {
+			appState.removeMediaItem(mediaItem.id);
+		}
 	};
 </script>
 

@@ -4,12 +4,17 @@
 	import VideoElement from './VideoElement.svelte';
 	import AddToInspectorOverlay from './AddToInspectorOverlay.svelte';
 	import { appState } from '$lib/stores/state.svelte';
+	import { modalState } from '$lib/stores/modals.svelte';
 	import { cn, handleDownload } from '$lib/utils/lib';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();
 
-	const handleRemove = () => {
-		appState.removeMediaItem(mediaItem.id);
+	const handleRemove = async () => {
+		const confirmed = await modalState.awaitResult('delete');
+
+		if (confirmed) {
+			appState.removeMediaItem(mediaItem.id);
+		}
 	};
 </script>
 

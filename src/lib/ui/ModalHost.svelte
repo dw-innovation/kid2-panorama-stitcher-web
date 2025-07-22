@@ -3,10 +3,12 @@
 	import { modalState } from '$lib/stores/modals.svelte';
 	import type { Component } from 'svelte';
 	import Tracking from './Modals/Tracking.svelte';
+	import Delete from './Modals/Delete.svelte';
 
 	const modalRegistry: Array<{ name: string; component: Component }> = [
 		{ name: 'processing', component: Processing },
-		{ name: 'tracking', component: Tracking }
+		{ name: 'tracking', component: Tracking },
+		{ name: 'delete', component: Delete }
 	];
 
 	const modalInstances: Record<string, any> = {};
