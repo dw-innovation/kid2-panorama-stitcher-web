@@ -7,15 +7,15 @@
 </script>
 
 {#if appState.selectedMediaItem?.mediaType === 'image'}
-	<Container label="image inspector">
+	<Container label="inspector">
 		<ImageInspector mediaItem={appState.selectedMediaItem} />
 	</Container>
 {:else if appState.selectedMediaItem?.mediaType === 'video'}
-	<Container label="video inspector">
+	<Container label="inspector">
 		<VideoInspector mediaItem={appState.selectedMediaItem} />
 	</Container>
 {:else}
-	<Container label="media inspector" disabled>
+	<Container label="inspector" disabled>
 		<div class="flex h-full w-full items-center justify-center">
 			<div class="flex w-[10rem] flex-col items-center gap-2">
 				<enhanced:img src={Hand} class="w-[5rem] rotate-180" alt="hand" />
