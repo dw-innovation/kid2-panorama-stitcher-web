@@ -26,13 +26,14 @@
 		>
 			<FileDown size={15} />
 		</button>
-
-		<button
-			onclick={handleRemove}
-			class="mediaLibrary-button"
-			disabled={appState.mediaItems.some((item) => item.sourceId === mediaItem.id)}
-		>
-			<Trash size={15} />
-		</button>
+		{#if !appState.mediaItems.some((item) => item.sourceId === mediaItem.id)}
+			<button
+				onclick={handleRemove}
+				class="mediaLibrary-button"
+				disabled={appState.mediaItems.some((item) => item.sourceId === mediaItem.id)}
+			>
+				<Trash size={15} />
+			</button>
+		{/if}
 	</div>
 </div>
