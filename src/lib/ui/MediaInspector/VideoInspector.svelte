@@ -74,10 +74,6 @@
 			<ImagePlus size={12} />
 			capture frame <kbd>c</kbd>
 		</button>
-		<button onclick={() => mediaItem?.id && handleDownload(mediaItem.blobURL, mediaItem?.id)}>
-			<Download size={12} />
-			download
-		</button>
 	</div>
 
 	<div class="relative flex h-full min-h-0 flex-1 items-center justify-center overflow-hidden">
