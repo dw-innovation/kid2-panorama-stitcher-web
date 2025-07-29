@@ -17,7 +17,7 @@ header {
 }
 
 main {
-	@apply relative h-full overflow-auto rounded-lg bg-white p-4 shadow-md;
+	@apply relative h-full overflow-auto;
 	grid-area: content;
 }
 
@@ -31,17 +31,17 @@ main {
 }
 
 .mediaLibrary {
-	@apply relative h-full overflow-hidden rounded-md bg-gray-100 p-4 pt-8 shadow-inner;
+	@apply relative h-full overflow-hidden rounded-md bg-gray-100 shadow-inner;
 	grid-area: mediaLibrary;
 }
 
 .mediaInspector {
-	@apply h-full overflow-hidden rounded-md bg-gray-100 p-4 pt-8 shadow-inner;
+	@apply h-full overflow-hidden rounded-md bg-gray-100 shadow-inner;
 	grid-area: mediaInspector;
 }
 
 .canvas {
-	@apply relative h-full overflow-hidden rounded-md bg-gray-100 p-4 pt-8 shadow-inner;
+	@apply relative h-full overflow-hidden rounded-md bg-gray-100 shadow-inner;
 	grid-area: canvas;
 }
 
@@ -50,7 +50,7 @@ button {
 }
 
 .pane-label {
-	@apply absolute top-0 left-0 z-20 flex w-full justify-between bg-gray-200 px-2 py-1 font-sans text-xs font-bold tracking-wide text-gray-700 uppercase select-none;
+	@apply flex w-full justify-between bg-gray-200 px-2 py-1 font-sans text-sm font-bold tracking-wide text-gray-700 uppercase select-none;
 }
 
 .button--ghost {
