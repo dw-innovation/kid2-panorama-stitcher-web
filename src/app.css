@@ -23,7 +23,7 @@ main {
 
 .frameSelector {
 	@apply grid h-full gap-2;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: minmax(20rem, 1fr) 2fr;
 	grid-template-rows: 12rem 1fr;
 	grid-template-areas:
 		'mediaLibrary mediaLibrary'
