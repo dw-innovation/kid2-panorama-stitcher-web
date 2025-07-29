@@ -6,9 +6,11 @@
 	import Delete from './Modals/Delete.svelte';
 	import Privacy from './Modals/Privacy.svelte';
 	import About from './Modals/About.svelte';
+	import Upload from './Modals/Upload.svelte';
 
 	const modalRegistry: Array<{ name: string; component: Component }> = [
 		{ name: 'processing', component: Processing },
+		{ name: 'upload', component: Upload },
 		{ name: 'tracking', component: Tracking },
 		{ name: 'delete', component: Delete },
 		{ name: 'about', component: About },

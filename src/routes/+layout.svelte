@@ -21,6 +21,7 @@
 
 	onMount(() => {
 		window.addEventListener('keydown', handleGlobalUndo);
+		modalState.toggle('upload', true);
 
 		return () => {
 			window.removeEventListener('keydown', handleGlobalUndo);
