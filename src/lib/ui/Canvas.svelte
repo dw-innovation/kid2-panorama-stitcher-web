@@ -332,9 +332,9 @@
 	<p>feature is yet to come</p>
 </Modal>
 
-<div class="canvas relative flex flex-col gap-2">
+<div class="canvas relative flex flex-col">
 	<span class="pane-label">canvas</span>
-	<div class="flex w-full justify-between">
+	<div class="flex w-full justify-between p-2 pb-0">
 		<div class="flex flex-wrap gap-2">
 			<button
 				onclick={() => stepsStore.setStep(2)}
@@ -375,7 +375,7 @@
 			💡 Click and drag empty areas to pan, or hold Alt (Option on Mac) + drag
 		</div>
 	{/if}
-	<div class="w-full flex-1" bind:this={canvasContainer}>
+	<div class="w-full flex-1 p-4 pt-0" bind:this={canvasContainer}>
 		<canvas bind:this={canvasEl} width="800" height="500"></canvas>
 	</div>
 </div>

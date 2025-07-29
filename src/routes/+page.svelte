@@ -10,6 +10,6 @@
 	<Navigation />
 </header>
 
-<main class="bg-amber-200">
+<main>
 	<CurrentComponent />
 </main>

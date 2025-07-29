@@ -41,7 +41,7 @@
 		</div>
 	{:else if $query.isError}
 		<div
-			class="flex max-w-md flex-col justify-center gap-2 rounded-md border border-red-300 bg-red-100 p-4 text-center text-red-800"
+			class="flex max-w-md flex-col justify-center gap-2 rounded-md border border-red-300 bg-red-100 p-2 text-center text-red-800"
 		>
 			<p class="font-semibold">Failed to generate panorama</p>
 			<p class="text-sm">
@@ -57,7 +57,7 @@
 		</div>
 	{:else if $query.isSuccess && appState.panorama}
 		<div class="flex h-full flex-col items-center gap-2">
-			<div class="flex gap-2 flex-shrink-0">
+			<div class="flex flex-shrink-0 gap-2">
 				<button onclick={() => stepsStore.setStep(1)} class="inline-block w-fit">
 					<ArrowLeft size={15} /> Go back to frame selector
 				</button>
@@ -73,7 +73,7 @@
 					<Download size={15} /> Panorama
 				</button>
 			</div>
-			<div class="flex-1 flex items-center justify-center w-full overflow-hidden">
+			<div class="flex w-full flex-1 items-center justify-center overflow-hidden">
 				<img
 					class="max-h-full max-w-full object-contain"
 					src={appState.panorama.blobURL}

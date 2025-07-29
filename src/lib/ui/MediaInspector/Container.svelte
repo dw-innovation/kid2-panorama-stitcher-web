@@ -42,7 +42,7 @@
 		{/if}
 	</span>
 
-	<div class="flex h-full flex-col">
+	<div class="flex h-full flex-col p-2">
 		{@render children?.()}
 	</div>
 </div>
