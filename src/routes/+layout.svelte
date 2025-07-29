@@ -29,7 +29,7 @@
 </script>
 
 <svelte:head>
-	<title>DW Panorama Stitcher</title>
+	<title>You Stitch It! – Create Panoramas From Videos or Photos</title>
 </svelte:head>
 
 <QueryClientProvider client={queryClient}>
