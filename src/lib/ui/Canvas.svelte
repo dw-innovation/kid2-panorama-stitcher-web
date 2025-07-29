@@ -334,24 +334,27 @@
 
 <div class="canvas relative flex flex-col gap-2">
 	<span class="pane-label">canvas</span>
-	<div class="flex flex-wrap gap-2">
-		<button
-			onclick={() => stepsStore.setStep(2)}
-			disabled={appState.canvasItems.length < 2}
-			class="button--primary"
-		>
-			<Aperture size={12} />create panorama
-		</button>
-		<button onclick={appState.clearCanvasItems}><XIcon size={12} /> clear canvas</button>
-		<button onclick={downloadAllImages}>
-			<Download size={12} /> images
-		</button>
-		<button onclick={downloadCanvas}>
-			<Download size={12} /> canvas
-		</button>
-
+	<div class="flex w-full justify-between">
+		<div class="flex flex-wrap gap-2">
+			<button
+				onclick={() => stepsStore.setStep(2)}
+				disabled={appState.canvasItems.length < 2}
+				class="button--primary"
+			>
+				<Aperture size={12} />create panorama
+			</button>
+			<button onclick={appState.clearCanvasItems} class="bg-red-300 hover:bg-red-200!">
+				<XIcon size={12} /> clear canvas</button
+			>
+			<button onclick={downloadAllImages}>
+				<Download size={12} /> images
+			</button>
+			<button onclick={downloadCanvas}>
+				<Download size={12} /> canvas
+			</button>
+		</div>
 		<!-- Zoom controls -->
-		<div class="ml-2 flex gap-1 border-l pl-2">
+		<div class="flex items-center gap-2">
 			<button onclick={zoomIn} title="Zoom In">
 				<ZoomIn size={12} />
 			</button>
