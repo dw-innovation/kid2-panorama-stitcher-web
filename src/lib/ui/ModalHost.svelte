@@ -4,11 +4,15 @@
 	import type { Component } from 'svelte';
 	import Tracking from './Modals/Tracking.svelte';
 	import Delete from './Modals/Delete.svelte';
+	import Privacy from './Modals/Privacy.svelte';
+	import About from './Modals/About.svelte';
 
 	const modalRegistry: Array<{ name: string; component: Component }> = [
 		{ name: 'processing', component: Processing },
 		{ name: 'tracking', component: Tracking },
-		{ name: 'delete', component: Delete }
+		{ name: 'delete', component: Delete },
+		{ name: 'about', component: About },
+		{ name: 'privacy', component: Privacy }
 	];
 
 	const modalInstances: Record<string, any> = {};

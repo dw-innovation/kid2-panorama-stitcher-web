@@ -73,7 +73,7 @@
 	>
 		<div
 			class={cn(
-				'relative z-50 m-4 overflow-hidden rounded-sm bg-white p-2 shadow-lg',
+				'relative z-50 m-4 max-w-4xl overflow-hidden rounded-sm bg-white p-2 shadow-lg',
 				compact ? 'h-fit' : ' h-full'
 			)}
 			bind:this={modalRef}

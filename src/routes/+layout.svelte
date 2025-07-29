@@ -35,4 +35,9 @@
 <QueryClientProvider client={queryClient}>
 	{@render children()}
 	<ModalHost />
+	<footer class="flex w-full items-center justify-end gap-2">
+		<a href="https://innovation.dw.com" target="_blank">DW Innovation | 2025</a>
+		<button onclick={() => modalState.toggle('about', true)}>about </button>
+		<button onclick={() => modalState.toggle('privacy', true)}>privacy </button>
+	</footer>
 </QueryClientProvider>
