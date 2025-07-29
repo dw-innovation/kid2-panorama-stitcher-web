@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { appState } from '$lib/stores/state.svelte';
 	import { PlusCircle } from '@lucide/svelte';
-	import MediaDropZone from '../MediaDropZone.svelte';
+	import DropZone from '../DropZone.svelte';
 	import Image from './Image.svelte';
 	import Video from './Video.svelte';
 	import groupBy from 'lodash/groupBy';
@@ -33,12 +33,27 @@
 
 	<div class="flex min-h-0 flex-1 gap-2 p-2">
 		<div class="h-full w-32">
-			<MediaDropZone>
-				<div class="flex min-w-24 flex-col items-center gap-2">
-					<PlusCircle />
-					<span class="text-center select-none">add media item</span>
-				</div>
-			</MediaDropZone>
+			<DropZone
+				class="h-full border-gray-200 hover:border-gray-300"
+				onDrop={(files) => {
+					files.forEach((file) => appState.addMediaItem(file));
+				}}
+			>
+				{#snippet children({ isDragActive, isDragAccept, isDragReject })}
+					<div class="flex min-w-24 flex-col items-center gap-2 {isDragActive ? 'scale-105' : ''}">
+						<PlusCircle
+							class={isDragAccept ? 'text-green-500' : isDragReject ? 'text-red-500' : ''}
+						/>
+						<span class="text-center text-sm select-none">
+							{isDragActive
+								? isDragAccept
+									? 'Drop files here'
+									: 'Invalid files'
+								: 'add media item'}
+						</span>
+					</div>
+				{/snippet}
+			</DropZone>
 		</div>
 		<div class="relative flex flex-nowrap gap-2 overflow-x-auto">
 			{#each orderedMediaItems() as mediaItem}
