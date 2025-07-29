@@ -34,17 +34,19 @@
 	<div class="flex min-h-0 flex-1 gap-2 p-2">
 		<div class="h-full w-32">
 			<DropZone
-				class="h-full border-gray-200 hover:border-gray-300"
+				class="h-full flex-1"
 				onDrop={(files) => {
 					files.forEach((file) => appState.addMediaItem(file));
 				}}
 			>
 				{#snippet children({ isDragActive, isDragAccept, isDragReject })}
-					<div class="flex min-w-24 flex-col items-center gap-2 {isDragActive ? 'scale-105' : ''}">
+					<div
+						class="flex h-full flex-1 flex-col items-center gap-2 {isDragActive ? 'scale-105' : ''}"
+					>
 						<PlusCircle
 							class={isDragAccept ? 'text-green-500' : isDragReject ? 'text-red-500' : ''}
 						/>
-						<span class="text-center text-sm select-none">
+						<span class=" text-center leading-tight select-none">
 							{isDragActive
 								? isDragAccept
 									? 'Drop files here'
@@ -55,7 +57,8 @@
 				{/snippet}
 			</DropZone>
 		</div>
-		<div class="relative flex flex-nowrap gap-2 overflow-x-auto">
+
+		<div class="relative flex w-full flex-nowrap gap-2 overflow-x-auto">
 			{#each orderedMediaItems() as mediaItem}
 				{#if mediaItem.mediaType === 'image'}
 					<Image {mediaItem} />

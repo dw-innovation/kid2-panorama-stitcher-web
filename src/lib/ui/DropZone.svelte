@@ -353,6 +353,6 @@
 	}
 
 	.dropzone:focus {
-		@apply ring-2 ring-blue-500 outline-none;
+		@apply outline-none;
 	}
 </style>
