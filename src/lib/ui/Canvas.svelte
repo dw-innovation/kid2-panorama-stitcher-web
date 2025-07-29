@@ -4,13 +4,14 @@
 		ActiveSelection,
 		Canvas,
 		FabricImage,
+		Point,
 		type FabricObject,
 		type ModifiedEvent,
 		type TPointerEvent
 	} from 'fabric';
 	import { appState } from '$lib/stores/state.svelte';
 	import type { CanvasObject } from '$lib/shared/types';
-	import { Aperture, Download, XIcon } from '@lucide/svelte';
+	import { Aperture, Download, XIcon, ZoomIn, ZoomOut, RotateCcw } from '@lucide/svelte';
 	import { stepsStore } from '$lib/stores/steps.svelte';
 	import Modal from './Modal.svelte';
 	import JSZip from 'jszip';
@@ -22,6 +23,9 @@
 	let modal: Modal;
 
 	let selectedItem = $state();
+	let zoomLevel = $state(1);
+	let isPanning = $state(false);
+	let lastPanPoint = $state<Point | null>(null);
 
 	let toRemove = $derived(() => {
 		const currentObjects = (fabricCanvas?.getObjects() as CanvasObject[]) ?? [];
@@ -60,7 +64,7 @@
 		link.href = dataURL;
 		link.download = 'canvas.png';
 		link.click();
-		
+
 		appState.trackAction('Download', 'download_canvas', 'canvas_png_download');
 	};
 
@@ -85,7 +89,7 @@
 		link.href = URL.createObjectURL(zipBlob);
 		link.download = 'images.zip';
 		link.click();
-		
+
 		appState.trackAction('Download', 'download_images_zip', 'images_zip_download');
 	};
 
@@ -177,6 +181,77 @@
 		fabricCanvas.on('object:modified', updateObjectTransform);
 		fabricCanvas.on('mouse:dblclick', handleDoubleClick);
 
+		// Add mouse wheel zoom
+		fabricCanvas.on('mouse:wheel', (opt) => {
+			const delta = opt.e.deltaY;
+			let zoom = fabricCanvas.getZoom();
+			zoom *= 0.999 ** delta;
+			if (zoom > 20) zoom = 20;
+			if (zoom < 0.01) zoom = 0.01;
+			fabricCanvas.zoomToPoint(new Point(opt.e.offsetX, opt.e.offsetY), zoom);
+			zoomLevel = zoom;
+			opt.e.preventDefault();
+			opt.e.stopPropagation();
+		});
+
+		// Add pan functionality
+		fabricCanvas.on('mouse:down', (opt) => {
+			const evt = opt.e as MouseEvent;
+			if (evt.altKey === true) {
+				// Always pan when Alt is held, regardless of target
+				isPanning = true;
+				fabricCanvas.selection = false;
+				lastPanPoint = new Point(evt.clientX, evt.clientY);
+				// Prevent selection of objects when Alt is held
+				if (opt.target) {
+					fabricCanvas.discardActiveObject();
+				}
+				evt.preventDefault();
+				evt.stopPropagation();
+			} else if (zoomLevel > 1 && !opt.target) {
+				// Pan when zoomed and clicking empty area
+				isPanning = true;
+				fabricCanvas.selection = false;
+				lastPanPoint = new Point(evt.clientX, evt.clientY);
+			}
+		});
+
+		fabricCanvas.on('mouse:move', (opt) => {
+			if (isPanning && lastPanPoint) {
+				const evt = opt.e as MouseEvent;
+				const vpt = fabricCanvas.viewportTransform!;
+				vpt[4] += evt.clientX - lastPanPoint.x;
+				vpt[5] += evt.clientY - lastPanPoint.y;
+				fabricCanvas.requestRenderAll();
+				lastPanPoint = new Point(evt.clientX, evt.clientY);
+			}
+		});
+
+		fabricCanvas.on('mouse:up', () => {
+			if (isPanning) {
+				fabricCanvas.setViewportTransform(fabricCanvas.viewportTransform!);
+				isPanning = false;
+				fabricCanvas.selection = true;
+			}
+		});
+
+		// Prevent selection when Alt key is held
+		fabricCanvas.on('selection:created', (opt) => {
+			const evt = opt.e as MouseEvent | undefined;
+			if (evt?.altKey) {
+				fabricCanvas.discardActiveObject();
+				fabricCanvas.renderAll();
+			}
+		});
+
+		fabricCanvas.on('selection:updated', (opt) => {
+			const evt = opt.e as MouseEvent | undefined;
+			if (evt?.altKey) {
+				fabricCanvas.discardActiveObject();
+				fabricCanvas.renderAll();
+			}
+		});
+
 		resizeCanvas();
 		window.addEventListener('keydown', handleKeyDown);
 		window.addEventListener('resize', resizeCanvas);
@@ -185,15 +260,42 @@
 			window.removeEventListener('resize', resizeCanvas);
 			window.removeEventListener('keydown', handleKeyDown);
 
-			fabricCanvas.off('object:moving', (e) => {
-				clampObjectToCanvas(e.target);
-			});
+			fabricCanvas.off('object:moving');
 			fabricCanvas.off('object:modified', updateObjectTransform);
 			fabricCanvas.off('mouse:dblclick', handleDoubleClick);
+			fabricCanvas.off('mouse:wheel');
+			fabricCanvas.off('mouse:down');
+			fabricCanvas.off('mouse:move');
+			fabricCanvas.off('mouse:up');
+			fabricCanvas.off('selection:created');
+			fabricCanvas.off('selection:updated');
 
 			fabricCanvas.dispose();
 		};
 	});
+
+	// Zoom functions
+	const zoomIn = () => {
+		let zoom = fabricCanvas.getZoom();
+		zoom = zoom * 1.1;
+		if (zoom > 20) zoom = 20;
+		fabricCanvas.setZoom(zoom);
+		zoomLevel = zoom;
+	};
+
+	const zoomOut = () => {
+		let zoom = fabricCanvas.getZoom();
+		zoom = zoom / 1.1;
+		if (zoom < 0.01) zoom = 0.01;
+		fabricCanvas.setZoom(zoom);
+		zoomLevel = zoom;
+	};
+
+	const resetZoom = () => {
+		fabricCanvas.setZoom(1);
+		fabricCanvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+		zoomLevel = 1;
+	};
 
 	$effect(() => {
 		for (const obj of toRemove()) {
@@ -232,7 +334,7 @@
 
 <div class="canvas relative flex flex-col gap-2">
 	<span class="pane-label">canvas</span>
-	<div class="flex gap-2">
+	<div class="flex flex-wrap gap-2">
 		<button
 			onclick={() => stepsStore.setStep(2)}
 			disabled={appState.canvasItems.length < 2}
@@ -247,7 +349,29 @@
 		<button onclick={downloadCanvas}>
 			<Download size={12} /> canvas
 		</button>
+
+		<!-- Zoom controls -->
+		<div class="ml-2 flex gap-1 border-l pl-2">
+			<button onclick={zoomIn} title="Zoom In">
+				<ZoomIn size={12} />
+			</button>
+			<button onclick={zoomOut} title="Zoom Out">
+				<ZoomOut size={12} />
+			</button>
+			<button onclick={resetZoom} title="Reset Zoom">
+				<RotateCcw size={12} />
+			</button>
+			<span class="min-w-12 rounded bg-gray-100 px-2 py-1 text-center text-xs">
+				{Math.round(zoomLevel * 100)}%
+			</span>
+		</div>
 	</div>
+
+	{#if zoomLevel > 1}
+		<div class="text-xs text-gray-600 italic">
+			💡 Click and drag empty areas to pan, or hold Alt (Option on Mac) + drag
+		</div>
+	{/if}
 	<div class="w-full flex-1" bind:this={canvasContainer}>
 		<canvas bind:this={canvasEl} width="800" height="500"></canvas>
 	</div>
