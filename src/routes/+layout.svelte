@@ -21,7 +21,6 @@
 
 	onMount(() => {
 		window.addEventListener('keydown', handleGlobalUndo);
-		modalState.toggle('tracking');
 
 		return () => {
 			window.removeEventListener('keydown', handleGlobalUndo);

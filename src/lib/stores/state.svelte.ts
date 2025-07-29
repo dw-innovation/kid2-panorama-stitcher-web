@@ -16,14 +16,14 @@ export const createState = () => {
 		panorama: undefined,
 		consents: {
 			processing: false,
-			tracking: false
+			tracking: true
 		},
 		historyStack: []
 	});
 
 	const trackAction = async (category: string, action?: string, name?: string) => {
 		if (!state.consents.tracking || !env.PUBLIC_MATOMO_URL || !env.PUBLIC_MATOMO_SITE_ID) return;
-		
+
 		try {
 			const params: MatomoParams = {
 				idsite: env.PUBLIC_MATOMO_SITE_ID,
@@ -137,7 +137,7 @@ export const createState = () => {
 				state.mediaItems.push(newMediaItem);
 				selectMediaItem(newMediaItem.id);
 			}
-			
+
 			trackAction('Media', 'add_media_item', `file_type_${mediaType}`);
 			return { id, blobURL };
 		},
@@ -237,7 +237,7 @@ export const createState = () => {
 				scaleX: undefined,
 				scaleY: undefined
 			});
-			
+
 			trackAction('Canvas', 'add_to_canvas', 'media_item_added');
 		},
 		removeFromCanvasItems(ids: string[]) {
@@ -294,7 +294,7 @@ export const createState = () => {
 			state.consents[type] = newState !== undefined ? newState : !state.consents[type];
 		},
 		trackAction,
-		pushToHistory,  
+		pushToHistory,
 		undo
 	};
 };
