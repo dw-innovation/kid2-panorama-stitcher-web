@@ -16,7 +16,6 @@
 	};
 
 	const handleAccept = () => {
-		appState.toggle('tracking', true);
 		modal.toggle(false);
 		resolvePromise?.(true);
 		resolvePromise = null;
