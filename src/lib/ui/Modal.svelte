@@ -29,6 +29,17 @@
 		}
 	};
 
+	$effect(() => {
+		// focus first button when opening modal
+		if (isOpen && modalRef) {
+			const firstButton = modalRef.querySelector('button:not(.button--ghost)');
+
+			if (firstButton) {
+				(firstButton as HTMLElement).focus();
+			}
+		}
+	});
+
 	const handleClickOutside = (event: MouseEvent) => {
 		if (modalRef && !modalRef.contains(event.target as Node)) {
 			toggle(false);
