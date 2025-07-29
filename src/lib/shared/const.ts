@@ -4,12 +4,12 @@ import Panorama from '$lib/ui/Panorama.svelte';
 export const STEPS = [
 	{
 		label: 'frameSelector',
-		displayName: 'Frame Selector',
+		displayName: 'Select',
 		component: FrameSelector
 	},
 	{
 		label: 'panorama',
-		displayName: 'Panorama',
+		displayName: 'Stitch',
 		component: Panorama
 	}
 ] as const;
