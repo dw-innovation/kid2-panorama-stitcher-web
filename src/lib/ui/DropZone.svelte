@@ -313,7 +313,7 @@
 
 <div
 	bind:this={dropZoneElement}
-	class={computedClass}
+	class={computedClass()}
 	role="button"
 	tabindex={disabled || noKeyboard ? -1 : 0}
 	aria-label="File drop zone. Click or drag files here to upload."
