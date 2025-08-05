@@ -4,6 +4,7 @@
 	import { stepsStore } from '$lib/stores/steps.svelte';
 	import { cn } from '$lib/utils/lib';
 	import Logo from '$assets/Logo.svelte';
+	import { modalState } from '../stores/modals.svelte';
 
 	let sufficientItems = $derived(appState.canvasItems.length < 2);
 </script>
@@ -12,30 +13,21 @@
 	<div>
 		<Logo />
 	</div>
-	<ul class="flex flex-1 justify-center gap-2">
-		{#each STEPS as step, index (step)}
-			<li>
-				<button
-					title={index === 2 && sufficientItems ? 'Please select some items to stitch first' : ''}
-					onclick={() => stepsStore.setStep(index)}
-					class={cn(
-						stepsStore.currentStep === index && 'font-bold',
-						'cursor-pointer',
-						'border-0! bg-transparent! shadow-none! hover:bg-blue-100!'
-					)}
-					disabled={index === 2 && sufficientItems}
-				>
-					<span
-						class={cn(
-							'flex aspect-square w-8 items-center justify-center rounded-full  text-white',
-							stepsStore.currentStep === index ? 'bg-black font-bold' : 'bg-slate-500'
-						)}
-					>
-						{index + 1}
-					</span>
-					{step.displayName}
-				</button>
-			</li>
-		{/each}
+	<ul class="flex w-full items-center justify-end gap-4 text-lg">
+		<li>
+			<a href="https://innovation.dw.com" target="_blank" class="hover:underline"
+				>DW Innovation | 2025</a
+			>
+		</li>
+		<li>
+			<button onclick={() => modalState.toggle('about', true)} class="button--ghost text-lg!">
+				about
+			</button>
+		</li>
+		<li>
+			<button onclick={() => modalState.toggle('privacy', true)} class="button--ghost text-lg!">
+				privacy
+			</button>
+		</li>
 	</ul>
 </nav>
