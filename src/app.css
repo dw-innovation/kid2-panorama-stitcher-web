@@ -54,7 +54,7 @@ button {
 }
 
 .button--ghost {
-	@apply m-0 flex cursor-pointer border-0 bg-transparent p-0 shadow-none outline-0;
+	@apply m-0 flex cursor-pointer border-0 bg-transparent p-0 text-inherit shadow-none outline-0 hover:underline hover:shadow-none;
 }
 .button--primary {
 	@apply bg-blue-300;
