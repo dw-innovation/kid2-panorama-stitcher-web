@@ -16,6 +16,18 @@
 			appState.removeMediaItem(mediaItem.id);
 		}
 	};
+
+	const handleAddToCanvas = () => {
+		if (appState.canvasItems.some((item) => item.sourceId === mediaItem.id)) {
+			modalState.toggle('alert', true, {
+				title: 'Image Already Added',
+				content: 'This image is already on the canvas.'
+			});
+			return;
+		}
+
+		appState.addToCanvas(mediaItem.id, mediaItem.blobURL);
+	};
 </script>
 
 <div class:pt-6={mediaItem.sourceId} class="relative">
@@ -44,7 +56,7 @@
 			class="absolute top-2 right-2 z-20 flex gap-1 opacity-0 transition-all group-hover:opacity-100"
 		>
 			<button
-				onclick={() => appState.addToCanvas(mediaItem.id, mediaItem.blobURL)}
+				onclick={handleAddToCanvas}
 				class="mediaLibrary-button"
 				title="add to canvas"
 			>

@@ -7,6 +7,7 @@
 	import Privacy from './Modals/Privacy.svelte';
 	import About from './Modals/About.svelte';
 	import Upload from './Modals/Upload.svelte';
+	import Alert from './Modals/Alert.svelte';
 
 	const modalRegistry: Array<{ name: string; component: Component }> = [
 		{ name: 'processing', component: Processing },
@@ -14,7 +15,8 @@
 		{ name: 'tracking', component: Tracking },
 		{ name: 'delete', component: Delete },
 		{ name: 'about', component: About },
-		{ name: 'privacy', component: Privacy }
+		{ name: 'privacy', component: Privacy },
+		{ name: 'alert', component: Alert }
 	];
 
 	const modalInstances: Record<string, any> = {};

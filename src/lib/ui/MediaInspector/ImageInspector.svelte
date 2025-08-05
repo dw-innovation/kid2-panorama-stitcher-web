@@ -5,6 +5,7 @@
 	import { onMount } from 'svelte';
 	import { handleDownload } from '$lib/utils/lib';
 	import type { MediaItem } from '$lib/shared/types';
+	import { modalState } from '$lib/stores/modals.svelte';
 
 	let { mediaItem }: { mediaItem: MediaItem } = $props();
 
@@ -14,6 +15,26 @@
 
 		const item = mediaItem;
 		appState.addToCanvas(item.id, item.blobURL);
+	};
+
+	const handleButtonClick = () => {
+		if (!mediaItem) {
+			modalState.toggle('alert', true, {
+				title: 'No Image Selected',
+				content: 'Please select an image from the media library first.'
+			});
+			return;
+		}
+
+		if (appState.canvasItems.some((item) => item.sourceId === mediaItem?.id)) {
+			modalState.toggle('alert', true, {
+				title: 'Image Already Added',
+				content: 'This image is already on the canvas.'
+			});
+			return;
+		}
+
+		handleAddToCanvas();
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
@@ -31,11 +52,7 @@
 
 <div class="flex h-full flex-col gap-2">
 	<div class="flex gap-2">
-		<button
-			onclick={handleAddToCanvas}
-			disabled={!mediaItem || appState.canvasItems.some((item) => item.sourceId === mediaItem?.id)}
-			class="button--primary"
-		>
+		<button onclick={handleButtonClick} class="button--primary">
 			<ImagePlus size={12} />
 			add to canvas <kbd>a</kbd>
 		</button>

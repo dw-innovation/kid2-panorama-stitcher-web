@@ -1,6 +1,6 @@
 type ModalInstance = {
 	name: string;
-	toggle: (open?: boolean) => void;
+	toggle: (open?: boolean, options?: { title?: string; content?: string }) => void;
 	awaitResult?: () => Promise<boolean>;
 };
 
@@ -15,9 +15,9 @@ export const createModalState = () => {
 			modals.delete(name);
 		},
 		get: (name: string) => modals.get(name),
-		toggle: (name: string, open?: boolean) => {
+		toggle: (name: string, open?: boolean, options?: { title?: string; content?: string }) => {
 			const modal = modals.get(name);
-			modal?.toggle(open);
+			modal?.toggle(open, options);
 		},
 		awaitResult: async (name: string) => {
 			const modal = modals.get(name);
