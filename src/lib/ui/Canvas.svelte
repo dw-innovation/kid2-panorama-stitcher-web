@@ -337,7 +337,7 @@
 				<Aperture size={12} />create panorama
 			</button>
 			<div class="text-xs text-gray-600">
-				💡 Click and drag empty areas to pan, or hold Alt (Option on Mac) + drag
+				💡 Click, drag and hold Alt (Option on Mac) to drag the canvas
 			</div>
 		</div>
 		<!-- Zoom controls -->
