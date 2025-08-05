@@ -342,7 +342,7 @@
 </div>
 
 <style>
-	@reference "../../app.css";
+	@reference "$src/app.css";
 
 	.dropzone {
 		@apply cursor-pointer rounded-lg border-2 border-dashed border-gray-300 bg-blue-100 p-6 transition-all duration-200 ease-in-out;

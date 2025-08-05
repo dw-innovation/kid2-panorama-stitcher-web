@@ -8,6 +8,7 @@
 	import About from './Modals/About.svelte';
 	import Upload from './Modals/Upload.svelte';
 	import Alert from './Modals/Alert.svelte';
+	import Panorama from './Modals/Panorama.svelte';
 
 	const modalRegistry: Array<{ name: string; component: Component }> = [
 		{ name: 'processing', component: Processing },
@@ -16,7 +17,8 @@
 		{ name: 'delete', component: Delete },
 		{ name: 'about', component: About },
 		{ name: 'privacy', component: Privacy },
-		{ name: 'alert', component: Alert }
+		{ name: 'alert', component: Alert },
+		{ name: 'panorama', component: Panorama }
 	];
 
 	const modalInstances: Record<string, any> = {};

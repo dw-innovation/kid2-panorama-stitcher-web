@@ -1,12 +1,7 @@
 <script lang="ts">
-	import { STEPS } from '$lib/shared/const';
 	import { appState } from '$lib/stores/state.svelte';
-	import { stepsStore } from '$lib/stores/steps.svelte';
-	import { cn } from '$lib/utils/lib';
 	import Logo from '$assets/Logo.svelte';
 	import { modalState } from '../stores/modals.svelte';
-
-	let sufficientItems = $derived(appState.canvasItems.length < 2);
 </script>
 
 <nav class="flex w-full items-center">

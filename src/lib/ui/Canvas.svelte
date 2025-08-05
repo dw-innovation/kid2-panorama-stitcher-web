@@ -5,14 +5,12 @@
 		Canvas,
 		FabricImage,
 		Point,
-		type FabricObject,
 		type ModifiedEvent,
 		type TPointerEvent
 	} from 'fabric';
 	import { appState } from '$lib/stores/state.svelte';
 	import type { CanvasObject } from '$lib/shared/types';
 	import { Aperture, Download, XIcon, ZoomIn, ZoomOut, RotateCcw } from '@lucide/svelte';
-	import { stepsStore } from '$lib/stores/steps.svelte';
 	import Modal from './Modal.svelte';
 	import JSZip from 'jszip';
 
@@ -329,11 +327,7 @@
 	<span class="pane-label">canvas</span>
 	<div class="flex w-full justify-between p-2 pb-0">
 		<div class="flex flex-wrap items-center gap-2">
-			<button
-				onclick={() => stepsStore.setStep(2)}
-				disabled={appState.canvasItems.length < 2}
-				class="button--primary"
-			>
+			<button disabled={appState.canvasItems.length < 2} class="button--primary">
 				<Aperture size={12} />create panorama
 			</button>
 			<div class="text-xs text-gray-600">

@@ -51,11 +51,6 @@ vi.mock('$lib/stores/state.svelte', () => ({
 		updateTransform: vi.fn()
 	}
 }));
-
-vi.mock('$lib/stores/steps.svelte', () => ({
-	stepsStore: {
-		setStep: vi.fn()
-	}
 }));
 
 // Mock Modal component
@@ -96,13 +91,11 @@ describe('Canvas Component Logic', () => {
 
 	it('should have proper state management mocks', async () => {
 		const { appState } = await import('$lib/stores/state.svelte');
-		const { stepsStore } = await import('$lib/stores/steps.svelte');
 
 		expect(appState.canvasItems).toEqual([]);
 		expect(appState.removeFromCanvasItems).toBeDefined();
 		expect(appState.clearCanvasItems).toBeDefined();
 		expect(appState.updateTransform).toBeDefined();
-		expect(stepsStore.setStep).toBeDefined();
 	});
 });
 
