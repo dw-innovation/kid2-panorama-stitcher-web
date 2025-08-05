@@ -336,6 +336,9 @@
 			>
 				<Aperture size={12} />create panorama
 			</button>
+		</div>
+		<!-- Zoom controls -->
+		<div class="flex items-center gap-2">
 			<button onclick={appState.clearCanvasItems} class="bg-red-300 hover:bg-red-200!">
 				<XIcon size={12} /> clear canvas</button
 			>
@@ -345,9 +348,6 @@
 			<button onclick={downloadCanvas}>
 				<Download size={12} /> canvas
 			</button>
-		</div>
-		<!-- Zoom controls -->
-		<div class="flex items-center gap-2">
 			<button onclick={zoomIn} title="Zoom In">
 				<ZoomIn size={12} />
 			</button>
@@ -363,12 +363,11 @@
 		</div>
 	</div>
 
-	{#if zoomLevel > 1}
-		<div class="text-xs text-gray-600 italic">
-			💡 Click and drag empty areas to pan, or hold Alt (Option on Mac) + drag
-		</div>
-	{/if}
-	<div class="w-full flex-1 p-4 pt-0" bind:this={canvasContainer}>
+	<div class="p-2 text-xs text-gray-600">
+		💡 Click and drag empty areas to pan, or hold Alt (Option on Mac) + drag
+	</div>
+
+	<div class="w-full flex-1 p-2" bind:this={canvasContainer}>
 		<canvas bind:this={canvasEl} width="800" height="500"></canvas>
 	</div>
 </div>
