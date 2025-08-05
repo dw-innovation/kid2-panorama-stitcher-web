@@ -34,11 +34,7 @@
 					/>
 
 					<span class=" text-center leading-tight select-none">
-						{isDragActive
-							? isDragAccept
-								? 'Drop files here'
-								: 'Invalid files'
-							: 'add media ditem'}
+						{isDragActive ? (isDragAccept ? 'Drop files here' : 'Invalid files') : 'add media item'}
 					</span>
 				</div>
 			{/snippet}
