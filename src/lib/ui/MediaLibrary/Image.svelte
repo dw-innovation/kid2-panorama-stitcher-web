@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { MediaItem } from '$lib/shared/types';
-	import { Blocks, Image, Search, Trash } from '@lucide/svelte';
+	import { Image, ImagePlus, Trash } from '@lucide/svelte';
 	import ImageElement from './ImageElement.svelte';
 	import AddToInspectorOverlay from './AddToInspectorOverlay.svelte';
 	import { appState } from '$lib/stores/state.svelte';
@@ -48,7 +48,7 @@
 				class="mediaLibrary-button"
 				title="add to canvas"
 			>
-				<Blocks size={15} />
+				<ImagePlus size={15} />
 			</button>
 
 			<button
