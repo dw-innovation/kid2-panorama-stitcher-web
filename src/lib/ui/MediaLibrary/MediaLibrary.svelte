@@ -46,7 +46,7 @@
 						<PlusCircle
 							class={isDragAccept ? 'text-green-500' : isDragReject ? 'text-red-500' : ''}
 						/>
-						<span class=" text-center leading-tight select-none">
+						<span class="text-center leading-tight select-none">
 							{isDragActive
 								? isDragAccept
 									? 'Drop files here'

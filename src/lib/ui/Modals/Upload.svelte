@@ -14,9 +14,10 @@
 <Modal bind:this={modal} compact>
 	<div class="flex flex-col items-center justify-center text-center">
 		<Logo />
-		<h1 class="mt-4 mb-2 text-xl font-bold">Create a Panorama from Your Video</h1>
 
-		<p class="mb-2 text-lg">Start by uploading a media item.</p>
+		<h1 class="mt-6 mb-2 text-2xl font-bold">Create a Panorama from Your Video</h1>
+
+		<p class="mb-6">Start by uploading a media item.</p>
 
 		<DropZone
 			class="h-full w-full flex-1"

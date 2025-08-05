@@ -345,11 +345,11 @@
 	@reference "../../app.css";
 
 	.dropzone {
-		@apply cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-6 transition-all duration-200 ease-in-out;
+		@apply cursor-pointer rounded-lg border-2 border-dashed border-gray-300 bg-blue-100 p-6 transition-all duration-200 ease-in-out;
 	}
 
 	.dropzone:hover:not([aria-disabled='true']) {
-		@apply border-gray-400 bg-gray-50;
+		@apply border-gray-400 bg-blue-200;
 	}
 
 	.dropzone:focus {
