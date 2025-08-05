@@ -147,30 +147,6 @@
 			modal.toggle();
 		}
 	};
-	const clampObjectToCanvas = (obj: FabricObject) => {
-		if (!fabricCanvas || !obj) return;
-
-		const canvasWidth = fabricCanvas.getWidth();
-		const canvasHeight = fabricCanvas.getHeight();
-
-		obj.setCoords();
-		const bounds = obj.getBoundingRect();
-
-		const overflow = {
-			left: Math.min(0, bounds.left),
-			right: Math.max(0, bounds.left + bounds.width - canvasWidth),
-			top: Math.min(0, bounds.top),
-			bottom: Math.max(0, bounds.top + bounds.height - canvasHeight)
-		};
-
-		if (overflow.left !== 0 || overflow.right !== 0) {
-			obj.left = obj.left! - overflow.left - overflow.right;
-		}
-
-		if (overflow.top !== 0 || overflow.bottom !== 0) {
-			obj.top = obj.top! - overflow.top - overflow.bottom;
-		}
-	};
 
 	onMount(() => {
 		fabricCanvas = new Canvas(canvasEl, {
@@ -191,9 +167,6 @@
 			});
 		};
 
-		fabricCanvas.on('object:moving', (e) => {
-			clampObjectToCanvas(e.target);
-		});
 		fabricCanvas.on('object:modified', updateObjectTransform);
 		fabricCanvas.on('mouse:dblclick', handleDoubleClick);
 
