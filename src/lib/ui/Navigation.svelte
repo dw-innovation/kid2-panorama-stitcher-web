@@ -13,7 +13,7 @@
 	<div>
 		<Logo />
 	</div>
-	<ul class="flex w-full items-center justify-end gap-4 text-lg">
+	<ul class="flex w-full items-center justify-end gap-4">
 		<li>
 			<a href="https://innovation.dw.com" target="_blank" class="hover:underline"
 				>DW Innovation | 2025</a
