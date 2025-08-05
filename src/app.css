@@ -31,17 +31,17 @@ main {
 }
 
 .mediaLibrary {
-	@apply relative h-full overflow-hidden rounded-md bg-gray-100 shadow-inner;
+	@apply relative h-full overflow-hidden rounded-md bg-gray-200 shadow-inner;
 	grid-area: mediaLibrary;
 }
 
 .mediaInspector {
-	@apply h-full overflow-hidden rounded-md bg-gray-100 shadow-inner;
+	@apply h-full overflow-hidden rounded-md bg-gray-200 shadow-inner;
 	grid-area: mediaInspector;
 }
 
 .canvas {
-	@apply relative h-full overflow-hidden rounded-md bg-gray-100 shadow-inner;
+	@apply relative h-full overflow-hidden rounded-md bg-gray-200 shadow-inner;
 	grid-area: canvas;
 }
 
@@ -50,7 +50,7 @@ button {
 }
 
 .pane-label {
-	@apply flex w-full justify-between bg-gray-200 px-2 py-1 font-sans text-sm font-bold tracking-wide text-gray-700 uppercase select-none;
+	@apply flex w-full justify-between bg-gray-300 px-2 py-1 font-sans text-sm font-bold tracking-wide text-gray-700 uppercase select-none;
 }
 
 .button--ghost {
