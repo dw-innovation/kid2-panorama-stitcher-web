@@ -74,7 +74,7 @@
 		<div
 			class={cn(
 				'relative z-50 m-4 max-w-4xl overflow-hidden rounded-sm bg-white p-4 shadow-lg',
-				compact ? 'h-fit' : ' h-full'
+				compact ? 'max-h-[80vh]' : ' h-full'
 			)}
 			bind:this={modalRef}
 			style:max-height="calc(100% - 5rem)"
@@ -82,7 +82,7 @@
 			<button onclick={() => toggle(false)} class="button--ghost absolute top-2 right-2 z-20">
 				<X />
 			</button>
-			<div class="relative h-full overflow-hidden py-4">
+			<div class="relative h-full overflow-y-auto py-4">
 				{@render children()}
 			</div>
 		</div>
