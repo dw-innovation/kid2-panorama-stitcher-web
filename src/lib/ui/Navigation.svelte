@@ -13,19 +13,19 @@
 	<div>
 		<Logo />
 	</div>
-	<ul class="flex w-full items-center justify-end gap-4">
+	<ul class="flex w-full items-center justify-end gap-4 text-base">
 		<li>
-			<a href="https://innovation.dw.com" target="_blank" class="hover:underline">
+			<a href="https://innovation.dw.com" target="_blank" class="hover:underline!">
 				DW Innovation | 2025
 			</a>
 		</li>
 		<li>
-			<button onclick={() => modalState.toggle('about', true)} class="button--ghost text-lg!">
+			<button onclick={() => modalState.toggle('about', true)} class="button--ghost text-base!">
 				about
 			</button>
 		</li>
 		<li>
-			<button onclick={() => modalState.toggle('privacy', true)} class="button--ghost text-lg!">
+			<button onclick={() => modalState.toggle('privacy', true)} class="button--ghost text-base!">
 				legal & privacy
 			</button>
 		</li>
