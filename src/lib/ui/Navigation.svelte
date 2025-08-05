@@ -26,7 +26,7 @@
 		</li>
 		<li>
 			<button onclick={() => modalState.toggle('privacy', true)} class="button--ghost text-lg!">
-				privacy
+				legal & privacy
 			</button>
 		</li>
 	</ul>
