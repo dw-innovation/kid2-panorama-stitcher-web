@@ -9,22 +9,24 @@
 
 	let sufficientItems = $derived(appState.canvasItems.length > 1);
 
-	const query = createQuery({
-		queryKey: ['stitchedImage', appState.canvasItems.map((item) => item.id)],
-		queryFn: async () => {
-			appState.trackAction('Processing', 'create_panorama', 'stitch_initiate');
-			try {
-				const result = await stitchCanvasImages(appState.canvasItems);
-				appState.trackAction('Processing', 'stitch_result', 'success');
-				return result;
-			} catch (error) {
-				appState.trackAction('Processing', 'stitch_result', 'failure');
-				throw error;
-			}
-		},
-		enabled: appState.canvasItems.length > 1,
-		retry: false
-	});
+	const query = $derived(
+		createQuery({
+			queryKey: ['stitchedImage', appState.canvasItems.map((item) => item.id)],
+			queryFn: async () => {
+				appState.trackAction('Processing', 'create_panorama', 'stitch_initiate');
+				try {
+					const result = await stitchCanvasImages(appState.canvasItems);
+					appState.trackAction('Processing', 'stitch_result', 'success');
+					return result;
+				} catch (error) {
+					appState.trackAction('Processing', 'stitch_result', 'failure');
+					throw error;
+				}
+			},
+			enabled: appState.canvasItems.length > 1,
+			retry: false
+		})
+	);
 
 	$effect(() => {
 		if ($query.isSuccess && $query.data) {
