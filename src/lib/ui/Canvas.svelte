@@ -328,7 +328,7 @@
 <div class="canvas relative flex flex-col">
 	<span class="pane-label">canvas</span>
 	<div class="flex w-full justify-between p-2 pb-0">
-		<div class="flex flex-wrap gap-2">
+		<div class="flex flex-wrap items-center gap-2">
 			<button
 				onclick={() => stepsStore.setStep(2)}
 				disabled={appState.canvasItems.length < 2}
@@ -336,6 +336,9 @@
 			>
 				<Aperture size={12} />create panorama
 			</button>
+			<div class="text-xs text-gray-600">
+				💡 Click and drag empty areas to pan, or hold Alt (Option on Mac) + drag
+			</div>
 		</div>
 		<!-- Zoom controls -->
 		<div class="flex items-center gap-2">
@@ -361,10 +364,6 @@
 				{Math.round(zoomLevel * 100)}%
 			</span>
 		</div>
-	</div>
-
-	<div class="p-2 text-xs text-gray-600">
-		💡 Click and drag empty areas to pan, or hold Alt (Option on Mac) + drag
 	</div>
 
 	<div class="w-full flex-1 p-2" bind:this={canvasContainer}>
