@@ -8,7 +8,7 @@
 </script>
 
 <Modal bind:this={modal} compact>
-	<div class="prose prose-sm max-w-none h-[60vh] overflow-y-auto">
+	<div class="h-[60vh] max-w-none overflow-y-auto">
 		<h1>Legal & Privacy Statement</h1>
 
 		<p>
@@ -125,14 +125,12 @@
 
 		<p>This application does not use third party services.</p>
 
-		<h3>5.Your rights as a data subject</h3>
+		<h3>5. Your rights as a data subject</h3>
 
 		<p>
 			We do not process any non-anonymised data. However, as a data subject you are generally
 			entitled to the following rights:
 		</p>
-
-		<h3>6. Your right to lodge a complaint</h3>
 
 		<ul>
 			<li>
@@ -158,14 +156,14 @@
 			</li>
 
 			<li>
-				<strong
-					>objection to data processing on the legal basis of “legitimate interest” under GDPR
-					Article 6 (1) point f:</strong
-				> If there are reasons arising from your specific situation, you are entitled to object to our
-				processing of your data at any time, provided that such an objection has its legal basis in a
-				“legitimate interest”. If you make use of your right to object, we shall discontinue the processing
-				of your data, unless we can – within the parameters of the law – demonstrate compelling legitimate
-				grounds for further processing, outweighing your own rights.
+				<strong>
+					objection to data processing on the legal basis of “legitimate interest” under GDPR
+					Article 6 (1) point f:
+				</strong> If there are reasons arising from your specific situation, you are entitled to object
+				to our processing of your data at any time, provided that such an objection has its legal basis
+				in a “legitimate interest”. If you make use of your right to object, we shall discontinue the
+				processing of your data, unless we can – within the parameters of the law – demonstrate compelling
+				legitimate grounds for further processing, outweighing your own rights.
 			</li>
 
 			<li>
@@ -187,7 +185,7 @@
 			further information, free of any charges.
 		</p>
 
-		<h3>5. Your right to lodge a complaint</h3>
+		<h3>6. Your right to lodge a complaint</h3>
 
 		<p>
 			Without prejudice to any other administrative or judicial remedy, you have the right to lodge
@@ -201,24 +199,27 @@
 <style>
 	@reference "$src/app.css";
 
-	.prose h1 {
+	h1 {
 		@apply mb-4 text-2xl font-bold;
 	}
 
-	.prose h2 {
+	h2 {
 		@apply mt-6 mb-3 text-xl font-semibold;
 	}
 
-	.prose h3 {
+	h3 {
 		@apply mt-6 mb-2 text-lg font-semibold;
 	}
 
-	.prose p {
+	p {
 		@apply mb-4;
+	}
+	ul {
+		@apply my-2 ml-6! list-disc;
 	}
 
 	.toggle-container {
-		@apply flex items-center gap-3 cursor-pointer;
+		@apply flex cursor-pointer items-center gap-3;
 	}
 
 	.toggle-input {
@@ -226,11 +227,11 @@
 	}
 
 	.toggle-slider {
-		@apply relative inline-block w-12 h-6 bg-gray-300 rounded-full transition-colors duration-200;
+		@apply relative inline-block h-6 w-12 rounded-full bg-gray-300 transition-colors duration-200;
 	}
 
 	.toggle-slider::after {
-		@apply content-[''] absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-200;
+		@apply absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform duration-200 content-[''];
 	}
 
 	.toggle-input:checked + .toggle-slider {
