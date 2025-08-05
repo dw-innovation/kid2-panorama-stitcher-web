@@ -70,6 +70,7 @@
 		<button
 			onclick={() => handleCaptureFrame(videoElement, mediaItem)}
 			disabled={!mediaItem || !videoElement}
+			class="button--primary"
 		>
 			<ImagePlus size={12} />
 			capture frame <kbd>c</kbd>
