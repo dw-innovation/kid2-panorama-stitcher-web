@@ -26,6 +26,7 @@
 	let zoomLevel = $state(1);
 	let isPanning = $state(false);
 	let lastPanPoint = $state<Point | null>(null);
+	let isAltPressed = $state(false);
 
 	let toRemove = $derived(() => {
 		const currentObjects = (fabricCanvas?.getObjects() as CanvasObject[]) ?? [];
@@ -94,6 +95,12 @@
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
+		if (e.key === 'Alt' || e.altKey) {
+			isAltPressed = true;
+			if (fabricCanvas) {
+				fabricCanvas.defaultCursor = 'grab';
+			}
+		}
 		if (e.key === 'Delete' || e.key === 'Backspace') {
 			const selected = fabricCanvas.getActiveObjects?.() ?? [];
 
@@ -120,6 +127,15 @@
 				});
 				fabricCanvas.setActiveObject(selection);
 				fabricCanvas.requestRenderAll();
+			}
+		}
+	};
+
+	const handleKeyUp = (e: KeyboardEvent) => {
+		if (e.key === 'Alt' || !e.altKey) {
+			isAltPressed = false;
+			if (fabricCanvas) {
+				fabricCanvas.defaultCursor = 'default';
 			}
 		}
 	};
@@ -201,6 +217,7 @@
 				// Always pan when Alt is held, regardless of target
 				isPanning = true;
 				fabricCanvas.selection = false;
+				fabricCanvas.defaultCursor = 'grabbing';
 				lastPanPoint = new Point(evt.clientX, evt.clientY);
 				// Prevent selection of objects when Alt is held
 				if (opt.target) {
@@ -232,6 +249,7 @@
 				fabricCanvas.setViewportTransform(fabricCanvas.viewportTransform!);
 				isPanning = false;
 				fabricCanvas.selection = true;
+				fabricCanvas.defaultCursor = isAltPressed ? 'grab' : 'default';
 			}
 		});
 
@@ -254,11 +272,13 @@
 
 		resizeCanvas();
 		window.addEventListener('keydown', handleKeyDown);
+		window.addEventListener('keyup', handleKeyUp);
 		window.addEventListener('resize', resizeCanvas);
 
 		return () => {
 			window.removeEventListener('resize', resizeCanvas);
 			window.removeEventListener('keydown', handleKeyDown);
+			window.removeEventListener('keyup', handleKeyUp);
 
 			fabricCanvas.off('object:moving');
 			fabricCanvas.off('object:modified', updateObjectTransform);
