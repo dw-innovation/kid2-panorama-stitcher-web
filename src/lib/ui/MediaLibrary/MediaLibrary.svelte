@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { appState } from '$lib/stores/state.svelte';
-	import { PlusCircle } from '@lucide/svelte';
+	import { InfoIcon, PlusCircle } from '@lucide/svelte';
 	import DropZone from '../DropZone.svelte';
 	import Image from './Image.svelte';
 	import Video from './Video.svelte';
@@ -29,7 +29,9 @@
 </script>
 
 <div class="mediaLibrary flex h-full flex-col">
-	<span class="pane-label">media library</span>
+	<span class="pane-label">
+		<div class="flex items-center gap-2">media library <InfoIcon size={15} /></div>
+	</span>
 
 	<div class="flex min-h-0 flex-1 gap-2 p-2">
 		<div class="h-full w-32">

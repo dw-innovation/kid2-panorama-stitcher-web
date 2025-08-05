@@ -10,9 +10,10 @@
 	} from 'fabric';
 	import { appState } from '$lib/stores/state.svelte';
 	import type { CanvasObject } from '$lib/shared/types';
-	import { Aperture, Download, XIcon, ZoomIn, ZoomOut, RotateCcw } from '@lucide/svelte';
+	import { Aperture, Download, XIcon, ZoomIn, ZoomOut, RotateCcw, InfoIcon } from '@lucide/svelte';
 	import Modal from './Modal.svelte';
 	import JSZip from 'jszip';
+	import { modalState } from '../stores/modals.svelte';
 
 	let canvasEl: HTMLCanvasElement;
 	let canvasContainer: HTMLDivElement;
@@ -324,10 +325,16 @@
 </Modal>
 
 <div class="canvas relative flex flex-col">
-	<span class="pane-label">canvas</span>
+	<span class="pane-label"
+		><div class="flex items-center gap-2">canvas <InfoIcon size={15} /></div></span
+	>
 	<div class="flex w-full justify-between p-2 pb-0">
 		<div class="flex flex-wrap items-center gap-2">
-			<button disabled={appState.canvasItems.length < 2} class="button--primary">
+			<button
+				disabled={appState.canvasItems.length < 2}
+				onclick={() => modalState.toggle('panorama', true)}
+				class="button--primary"
+			>
 				<Aperture size={12} />create panorama
 			</button>
 			<div class="text-xs text-gray-600">

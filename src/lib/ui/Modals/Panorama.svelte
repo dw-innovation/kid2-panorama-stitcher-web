@@ -60,7 +60,7 @@
 		{:else if $query.isSuccess && appState.panorama}
 			<div class="flex h-full flex-col items-center gap-2">
 				<div class="flex flex-shrink-0 gap-2">
-					<button class="inline-block w-fit">
+					<button class="inline-block w-fit" onclick={() => modal.toggle()}>
 						<ArrowLeft size={15} /> Go back to frame selector
 					</button>
 					<button

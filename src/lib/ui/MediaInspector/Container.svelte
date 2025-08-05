@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Expand } from '@lucide/svelte';
+	import { Expand, InfoIcon } from '@lucide/svelte';
 	import { onMount, type Snippet } from 'svelte';
 	import Modal from '../Modal.svelte';
 
@@ -35,7 +35,12 @@
 
 <div class="mediaInspector relative h-full max-h-full flex-none">
 	<span class="pane-label">
-		<span>{label}</span>
+		<span>
+			<div class="flex items-center gap-2">
+				{label}
+				<InfoIcon size={15} />
+			</div>
+		</span>
 
 		{#if !disabled}
 			<button class="button--ghost" onclick={() => modal.toggle(true)}><Expand size={12} /></button>
