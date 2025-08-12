@@ -85,9 +85,9 @@ export const createState = () => {
 
 			let mediaType: MediaType;
 
-			const allowedImageTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+			const allowedImageTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
-			const allowedVideoTypes = ['video/mp4', 'video/webm', 'video/quicktime', 'video/x-msvideo'];
+			const allowedVideoTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
 
 			if (allowedImageTypes.includes(file.type)) {
 				mediaType = 'image';
