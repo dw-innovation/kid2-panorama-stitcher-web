@@ -60,4 +60,11 @@
 	.prose p {
 		@apply mb-4;
 	}
+
+	.prose a {
+		@apply underline;
+	}
+	.prose a:hover {
+		@apply no-underline;
+	}
 </style>
