@@ -344,6 +344,7 @@
 			canvas
 			<span
 				use:tooltip
+				class="cursor-help"
 				title="Automatically create a panorama from your selected images 
 
 Alternatively, organize frames and manually create a panorama on the canvas 

@@ -34,6 +34,7 @@
 		<div class="flex items-center gap-2">
 			media library <span
 				use:tooltip
+				class="cursor-help"
 				title="Upload video(s) (mov, avi and mp4) and images from your computer 
 
 Select a video to play it in the Inspector 

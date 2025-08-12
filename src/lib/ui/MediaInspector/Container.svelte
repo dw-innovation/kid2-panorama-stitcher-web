@@ -41,6 +41,7 @@
 				{label}
 				<span
 					use:tooltip
+					class="cursor-help"
 					title="Play videos and select frames [c] to add them to the Media library 
 
 Add frames or images to the canvas [a] 
