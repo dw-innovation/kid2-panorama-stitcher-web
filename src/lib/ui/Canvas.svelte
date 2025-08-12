@@ -371,8 +371,8 @@ Click, drag and hold Alt (Option on Mac) to pan the canvas"><InfoIcon size={15} 
 		<!-- Zoom controls -->
 		<div class="flex items-center gap-2">
 			<button onclick={appState.clearCanvasItems} class="bg-red-300 hover:bg-red-200!">
-				<XIcon size={12} /> clear canvas</button
-			>
+				clear canvas
+			</button>
 			<button onclick={downloadAllImages}>
 				<Download size={12} /> images
 			</button>
