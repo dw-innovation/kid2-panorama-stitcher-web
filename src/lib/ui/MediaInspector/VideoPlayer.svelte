@@ -149,7 +149,7 @@
 	});
 </script>
 
-<div class="controls flex h-full w-full flex-col overflow-hidden">
+<div class="controls-wrapper">
 	<div class="flex flex-wrap items-center justify-center gap-2 py-2">
 		<button onclick={stepBackward} title="Previous Frame">
 			<ChevronFirst size={16} />
@@ -211,14 +211,14 @@
 		</select>
 	</div>
 
-	<div class="flex min-h-0 flex-1 items-center justify-center">
+	<div class="video-container">
 		<video
 			bind:this={videoElement}
 			ontimeupdate={onTimeUpdate}
 			onloadedmetadata={onLoadedMetadata}
 			playsinline
 			preload="metadata"
-			class="max-h-full max-w-full object-contain"
+			class="w-full h-full object-contain"
 		>
 			<track kind="captions" />
 			<source src={mediaItem.blobURL} type="video/mp4" />
@@ -232,5 +232,22 @@
 
 	.controls button {
 		@apply px-1;
+	}
+
+	.controls-wrapper {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	.video-container {
+		height: 0;
+		flex-grow: 1;
+		min-height: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
 	}
 </style>

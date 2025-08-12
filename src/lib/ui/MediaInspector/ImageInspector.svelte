@@ -62,7 +62,17 @@
 		</button>
 	</div>
 
-	<div class="relative flex h-full flex-1 items-center justify-center overflow-hidden">
-		<Magnifier src={mediaItem?.blobURL} height="fit-content" alt="" className="h-[inherit]" />
+	<div class="image-container">
+		<Magnifier src={mediaItem?.blobURL} width="100%" height="100%" alt="" className="w-full h-full" />
 	</div>
 </div>
+
+<style>
+	.image-container {
+		height: 0;
+		flex-grow: 1;
+		min-height: 0;
+		overflow: hidden;
+		position: relative;
+	}
+</style>
