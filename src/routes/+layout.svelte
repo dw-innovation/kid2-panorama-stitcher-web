@@ -2,6 +2,7 @@
 	import { appState } from '$lib/stores/state.svelte';
 	import ModalHost from '$lib/ui/ModalHost.svelte';
 	import { modalState } from '$src/lib/stores/modals.svelte';
+	import Feedback from '$src/lib/ui/Feedback/Feedback.svelte';
 	import '../app.css';
 	import '@fontsource/inter/400.css';
 	import '@fontsource/inter/600.css';
@@ -34,6 +35,7 @@
 </svelte:head>
 
 <QueryClientProvider client={queryClient}>
+	<Feedback />
 	{@render children()}
 	<ModalHost />
 </QueryClientProvider>
