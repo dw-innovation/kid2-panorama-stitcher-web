@@ -1,8 +1,7 @@
 import type { Handle } from '@sveltejs/kit';
-import { dev } from '$app/environment';
 import { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD } from '$env/static/private';
 
-const BASIC_AUTH_ENABLED = !dev; // Disable in development mode
+const BASIC_AUTH_ENABLED = false; // Disable in development mode
 const USERNAME = BASIC_AUTH_USERNAME || 'admin';
 const PASSWORD = BASIC_AUTH_PASSWORD || 'password';
 
