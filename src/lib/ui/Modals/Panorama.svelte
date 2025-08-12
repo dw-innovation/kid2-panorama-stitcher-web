@@ -52,8 +52,8 @@
 			>
 				<p class="font-semibold">Failed to generate panorama</p>
 				<p class="text-sm">
-					Sorry, we couldn't detect enough overlap to stitch these images. You can download your
-					canvas with your self created panorama
+					Sorry, we couldn't stitch your images. However, you can download your canvas with your
+					self created panorama
 				</p>
 				<button class="mt-4 inline rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700">
 					Go back to frame selector
