@@ -14,6 +14,7 @@
 	import Modal from './Modal.svelte';
 	import JSZip from 'jszip';
 	import { modalState } from '../stores/modals.svelte';
+	import { tooltip } from '../actions';
 
 	let canvasEl: HTMLCanvasElement;
 	let canvasContainer: HTMLDivElement;
@@ -338,8 +339,20 @@
 </Modal>
 
 <div class="canvas relative flex flex-col">
-	<span class="pane-label"
-		><div class="flex items-center gap-2">canvas <InfoIcon size={15} /></div></span
+	<span class="pane-label">
+		<div class="flex items-center gap-2">
+			canvas
+			<span
+				use:tooltip
+				title="Automatically create a panorama from your selected images 
+
+Alternatively, organize frames and manually create a panorama on the canvas 
+
+Download panorama, canvas, or all single images as a zip file 
+
+Click, drag and hold Alt (Option on Mac) to pan the canvas"><InfoIcon size={15} /></span
+			>
+		</div></span
 	>
 	<div class="flex w-full justify-between p-2 pb-0">
 		<div class="flex flex-wrap items-center gap-2">
@@ -393,7 +406,7 @@
 		overflow: hidden;
 		min-height: 0;
 	}
-	
+
 	canvas {
 		border: 1px solid #ccc;
 		display: block;

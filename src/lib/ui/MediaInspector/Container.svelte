@@ -2,6 +2,7 @@
 	import { Expand, InfoIcon } from '@lucide/svelte';
 	import { onMount, type Snippet } from 'svelte';
 	import Modal from '../Modal.svelte';
+	import { tooltip } from '$src/lib/actions';
 
 	let {
 		label,
@@ -38,7 +39,19 @@
 		<span>
 			<div class="flex items-center gap-2">
 				{label}
-				<InfoIcon size={15} />
+				<span
+					use:tooltip
+					title="Play videos and select frames [c] to add them to the Media library 
+
+Add frames or images to the canvas [a] 
+
+Turn off the sound  
+
+Adjust the playback speed or view videos frame-by-frame  
+
+Switch to full-screen mode and analyse a single image with the magnifier"
+					><InfoIcon size={15} /></span
+				>
 			</div>
 		</span>
 

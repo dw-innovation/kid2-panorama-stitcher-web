@@ -7,6 +7,7 @@
 	import groupBy from 'lodash/groupBy';
 	import flatMap from 'lodash/flatMap';
 	import sortBy from 'lodash/sortBy';
+	import { tooltip } from '$src/lib/actions';
 
 	let orderedMediaItems = $derived(() => {
 		const items = [...appState.mediaItems];
@@ -30,7 +31,16 @@
 
 <div class="mediaLibrary flex h-full flex-col">
 	<span class="pane-label">
-		<div class="flex items-center gap-2">media library <InfoIcon size={15} /></div>
+		<div class="flex items-center gap-2">
+			media library <span
+				use:tooltip
+				title="Upload video(s) (mov, avi and mp4) and images from your computer 
+
+Select a video to play it in the Inspector 
+
+Select an image to use the magnifier for visual analysis "><InfoIcon size={15} /></span
+			>
+		</div>
 	</span>
 
 	<div class="flex min-h-0 flex-1 gap-2 p-2">
