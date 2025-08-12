@@ -43,12 +43,25 @@
 
 	const resizeCanvas = async () => {
 		await tick();
-		if (canvasContainer && fabricCanvas) {
-			const width = canvasContainer.clientWidth;
-			const height = canvasContainer.clientHeight;
+		if (canvasContainer && fabricCanvas && canvasEl) {
+			const rect = canvasContainer.getBoundingClientRect();
+			const width = rect.width - 16; // Account for padding
+			const height = rect.height - 16; // Account for padding
+
+			// Store current viewport transform
+			const vpt = fabricCanvas.viewportTransform;
+
+			// Set both HTML canvas and Fabric.js canvas dimensions
 			canvasEl.width = width;
 			canvasEl.height = height;
 			fabricCanvas.setDimensions({ width, height });
+
+			// Restore viewport transform to maintain zoom/pan state
+			if (vpt) {
+				fabricCanvas.setViewportTransform(vpt);
+			}
+
+			fabricCanvas.renderAll();
 		}
 	};
 
@@ -367,13 +380,24 @@
 		</div>
 	</div>
 
-	<div class="w-full flex-1 p-2" bind:this={canvasContainer}>
-		<canvas bind:this={canvasEl} width="800" height="500"></canvas>
+	<div class="canvas-container" bind:this={canvasContainer}>
+		<canvas bind:this={canvasEl}></canvas>
 	</div>
 </div>
 
 <style>
+	.canvas-container {
+		flex: 1;
+		width: 100%;
+		padding: 0.5rem;
+		overflow: hidden;
+		min-height: 0;
+	}
+	
 	canvas {
 		border: 1px solid #ccc;
+		display: block;
+		width: 100%;
+		height: 100%;
 	}
 </style>
