@@ -8,21 +8,28 @@
 	<div>
 		<Logo />
 	</div>
-	<ul class="flex w-full items-center justify-end gap-4 text-base">
+	<ul class="flex w-full items-center justify-end gap-4 text-sm text-gray-500!">
 		<li>
-			<a href="https://innovation.dw.com" target="_blank" class="hover:underline!">
-				DW Innovation | 2025
-			</a>
-		</li>
-		<li>
-			<button onclick={() => modalState.toggle('about', true)} class="button--ghost text-base!">
+			<button
+				onclick={() => modalState.toggle('about', true)}
+				class="button--ghost text-sm! text-gray-500!"
+			>
 				about
 			</button>
 		</li>
+
 		<li>
-			<button onclick={() => modalState.toggle('privacy', true)} class="button--ghost text-base!">
+			<button
+				onclick={() => modalState.toggle('privacy', true)}
+				class="button--ghost text-sm! text-gray-500!"
+			>
 				legal & privacy
 			</button>
+		</li>
+		<li>
+			<a href="https://innovation.dw.com" target="_blank" class="hover:underline!">
+				DW Innovation © 2025
+			</a>
 		</li>
 	</ul>
 </nav>
