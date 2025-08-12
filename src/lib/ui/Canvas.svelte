@@ -369,8 +369,11 @@ Click, drag and hold Alt (Option on Mac) to pan the canvas"><InfoIcon size={15} 
 			</div>
 		</div>
 		<!-- Zoom controls -->
-		<div class="flex items-center gap-2">
-			<button onclick={appState.clearCanvasItems} class="bg-red-300 hover:bg-red-200!">
+		<div class="flex items-start gap-2">
+			<button
+				onclick={appState.clearCanvasItems}
+				class="flex-nowrap bg-red-300 text-nowrap hover:bg-red-200!"
+			>
 				clear canvas
 			</button>
 			<button onclick={downloadAllImages}>
