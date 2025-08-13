@@ -56,8 +56,11 @@ export type MatomoParams = {
 	rec: number;
 	rand: number;
 	res: string;
+	url: string;
 	ua: string;
+	action_name: string;
 	e_c: string;
 	e_a?: string;
 	e_n?: string;
+	send_image?: number;
 };

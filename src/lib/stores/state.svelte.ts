@@ -3,6 +3,7 @@ import axios from 'axios';
 import { env } from '$env/dynamic/public';
 import type { AppState, MatomoParams, MediaType } from '../shared/types';
 import { getMediaDimensions } from '../utils/lib';
+import { PUBLIC_MATOMO_PAGE_URL } from '$env/static/public';
 
 type ConsentTypes = 'processing' | 'tracking';
 
@@ -28,10 +29,13 @@ export const createState = () => {
 			const params: MatomoParams = {
 				idsite: env.PUBLIC_MATOMO_SITE_ID,
 				rec: 1,
-				rand: Math.floor(Math.random() * 10000000),
-				res: `${window?.screen?.availWidth}x${window?.screen?.availHeight}`,
+				rand: Date.now(),
+				url: PUBLIC_MATOMO_PAGE_URL,
+				action_name: name,
+				res: `${window?.screen?.width || ''}x${window?.screen?.height || ''}`,
 				ua: window?.navigator?.userAgent,
-				e_c: category
+				e_c: category,
+				send_image: 0
 			};
 
 			if (action) params.e_a = action;
