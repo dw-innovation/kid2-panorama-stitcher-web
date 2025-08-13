@@ -1,10 +1,13 @@
+<script lang="ts">
+	let { width = 154 }: { width?: number } = $props();
+</script>
+
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	id="Layer_1"
 	version="1.1"
 	viewBox="0 0 1024.19 153.23"
-	width="154"
-	height="20"
+	{width}
 	><defs
 		><style>
 			.st0 {

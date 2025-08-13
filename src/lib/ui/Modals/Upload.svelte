@@ -18,7 +18,7 @@
 
 <Modal bind:this={modal} compact>
 	<div class="flex flex-col items-center justify-center text-center">
-		<Logo />
+		<Logo width={250} />
 
 		<h1 class="mt-6 mb-2 text-2xl font-bold">Create a Panorama from Your Video</h1>
 
