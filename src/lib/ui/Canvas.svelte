@@ -15,6 +15,8 @@
 	import JSZip from 'jszip';
 	import { modalState } from '../stores/modals.svelte';
 	import { tooltip } from '../actions';
+	import minBy from 'lodash/minBy';
+	import maxBy from 'lodash/maxBy';
 
 	let canvasEl: HTMLCanvasElement;
 	let canvasContainer: HTMLDivElement;
@@ -69,9 +71,45 @@
 	const downloadCanvas = () => {
 		if (appState.canvasItems.length === 0) return;
 
+		// Get all fabric objects on the canvas
+		const objects = fabricCanvas.getObjects() as CanvasObject[];
+
+		if (objects.length === 0) {
+			// Fallback to full canvas if no objects
+			const dataURL = fabricCanvas.toDataURL({
+				format: 'png',
+				multiplier: 2
+			});
+			const link = document.createElement('a');
+			link.href = dataURL;
+			link.download = 'canvas.png';
+			link.click();
+			return;
+		}
+
+		// Add some padding around the content
+		const padding = 20;
+		
+		// Calculate bounding box of all visible objects using lodash
+		const bounds = objects.map(obj => obj.getBoundingRect());
+		const minX = minBy(bounds, 'left')?.left ?? padding;
+		const minY = minBy(bounds, 'top')?.top ?? padding;
+		const maxXBound = maxBy(bounds, b => b.left + b.width);
+		const maxYBound = maxBy(bounds, b => b.top + b.height);
+		const maxX = maxXBound ? maxXBound.left + maxXBound.width : padding;
+		const maxY = maxYBound ? maxYBound.top + maxYBound.height : padding;
+		const cropLeft = Math.max(0, minX - padding);
+		const cropTop = Math.max(0, minY - padding);
+		const cropWidth = maxX - minX + padding * 2;
+		const cropHeight = maxY - minY + padding * 2;
+
 		const dataURL = fabricCanvas.toDataURL({
 			format: 'png',
-			multiplier: 2
+			multiplier: 2,
+			left: cropLeft,
+			top: cropTop,
+			width: cropWidth,
+			height: cropHeight
 		});
 
 		const link = document.createElement('a');
