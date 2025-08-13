@@ -5,10 +5,15 @@
 	import Modal from '../Modal.svelte';
 	import Logo from '$assets/Logo.svelte';
 	import { modalState } from '$src/lib/stores/modals.svelte';
+	import { onMount } from 'svelte';
 
 	let modal: Modal;
 
 	export const toggle = (open?: boolean) => modal?.toggle(open);
+
+	onMount(() => {
+		appState.trackAction('initial_visit');
+	});
 </script>
 
 <Modal bind:this={modal} compact>
