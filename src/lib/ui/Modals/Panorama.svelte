@@ -6,6 +6,7 @@
 	import { ArrowLeft, Download } from '@lucide/svelte';
 
 	let modal: Modal;
+	let isModalOpen = $state(false);
 
 	let sufficientItems = $derived(appState.canvasItems.length > 1);
 
@@ -23,7 +24,7 @@
 					throw error;
 				}
 			},
-			enabled: appState.canvasItems.length > 1,
+			enabled: appState.canvasItems.length > 1 && appState.getConsent('processing') && isModalOpen,
 			retry: false
 		})
 	);
@@ -37,7 +38,7 @@
 	export const toggle = (open?: boolean) => modal?.toggle(open);
 </script>
 
-<Modal bind:this={modal} compact>
+<Modal bind:this={modal} compact onToggle={(open) => (isModalOpen = open)}>
 	<div class="relative flex h-full flex-col items-center justify-center">
 		{#if $query.isLoading}
 			<div class="flex flex-col items-center">

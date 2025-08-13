@@ -359,7 +359,17 @@ Click, drag and hold Alt (Option on Mac) to pan the canvas"><InfoIcon size={15} 
 		<div class="flex flex-wrap items-center gap-2">
 			<button
 				disabled={appState.canvasItems.length < 2}
-				onclick={() => modalState.toggle('panorama', true)}
+				onclick={() => {
+					if (appState.getConsent('processing')) {
+						modalState.toggle('panorama', true);
+					} else {
+						modalState.awaitResult('processing').then((accepted) => {
+							if (accepted) {
+								modalState.toggle('panorama', true);
+							}
+						});
+					}
+				}}
 				class="button--primary"
 			>
 				<Aperture size={12} />create panorama
