@@ -86,7 +86,9 @@ export const handleDownload = (url: string, name: string) => {
 	document.body.removeChild(link);
 };
 
-export const stitchCanvasImages = async (canvasItems: CanvasItem[]): Promise<string> => {
+export const stitchCanvasImages = async (canvasItems: CanvasItem[], trackAction?: (category: string, action?: string, name?: string) => void): Promise<string> => {
+	trackAction?.('Processing', 'stitch_start', `image_count_${canvasItems.length}`);
+	
 	const formData = new FormData();
 
 	for (const item of canvasItems) {
@@ -120,6 +122,7 @@ export const stitchCanvasImages = async (canvasItems: CanvasItem[]): Promise<str
 		return URL.createObjectURL(stitchedBlob);
 	} catch (err) {
 		console.error('Stitching failed:', err);
+		trackAction?.('Processing', 'stitch_error', err instanceof Error ? err.message : 'unknown_error');
 		throw err instanceof Error ? err : new Error('Unknown stitching error');
 	}
 };

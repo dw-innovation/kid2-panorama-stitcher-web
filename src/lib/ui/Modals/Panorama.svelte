@@ -16,7 +16,7 @@
 			queryFn: async () => {
 				appState.trackAction('Processing', 'create_panorama', 'stitch_initiate');
 				try {
-					const result = await stitchCanvasImages(appState.canvasItems);
+					const result = await stitchCanvasImages(appState.canvasItems, appState.trackAction);
 					appState.trackAction('Processing', 'stitch_result', 'success');
 					return result;
 				} catch (error) {
