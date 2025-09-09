@@ -40,8 +40,7 @@
 				DW Innovation
 			</a>
 			and is co-funded by the German
-			<a href="https://www.bmftr.bund.de/DE/Home/home_node.html" target="_blank">BMFTR</a> via the KID2
-			Project.
+			<a href="https://kulturstaatsminister.de/" target="_blank">BKM</a> via the KID2 Project.
 		</p>
 	</div>
 </Modal>
