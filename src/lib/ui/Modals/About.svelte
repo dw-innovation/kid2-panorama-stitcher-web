@@ -39,8 +39,10 @@
 			You Stitch It has been created by <a href="https://innovation.dw.com/" target="_blank">
 				DW Innovation
 			</a>
-			and is co-funded by the German
-			<a href="https://kulturstaatsminister.de/" target="_blank">BKM</a> via the KID2 Project.
+			and is co-funded by the German Secretary of State for Culture and the Media (<a
+				href="https://www.bundesregierung.de/breg-de/bundesregierung/staatsministerin-fuer-kultur-und-medien"
+				target="_blank">BKM</a
+			>) via the KID2 Project (Künstliche Intelligenz gegen Desinformation #2).
 		</p>
 	</div>
 </Modal>
